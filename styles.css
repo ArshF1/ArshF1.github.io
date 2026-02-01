@@ -101,6 +101,10 @@ body {
     color: var(--white);
 }
 
+[data-theme="dark"] .logo-text {
+    color: #f1f5f9;
+}
+
 .logo-dot {
     color: var(--primary);
     font-size: 2rem;
@@ -166,7 +170,7 @@ body {
 .hamburger span {
     width: 25px;
     height: 2px;
-    background: var(--white);
+    background: #f1f5f9;
     transition: all 0.3s ease;
     border-radius: 2px;
 }
