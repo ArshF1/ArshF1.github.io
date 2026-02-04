@@ -324,6 +324,21 @@ document.querySelectorAll('.experience-card').forEach(card => {
     expObserver.observe(card);
 });
 
+// Animate project cards
+const projectObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            projectObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.project-card').forEach((card, index) => {
+    card.style.transitionDelay = `${index * 0.1}s`;
+    projectObserver.observe(card);
+});
+
 // Tilt effect (desktop only)
 if (perfSettings.enableTiltEffect) {
     document.querySelectorAll('.skill-card').forEach(card => {
