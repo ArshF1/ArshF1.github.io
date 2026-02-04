@@ -1030,10 +1030,24 @@ body {
 
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
-    max-width: 1000px;
+    max-width: 900px;
     margin: 0 auto;
+    padding: 0 15px;
+}
+
+@media (max-width: 768px) {
+    .projects-grid {
+        grid-template-columns: 1fr;
+        max-width: 100%;
+        padding: 0;
+    }
+    
+    .project-card {
+        margin: 0 auto;
+        max-width: 100%;
+    }
 }
 
 .project-card {
