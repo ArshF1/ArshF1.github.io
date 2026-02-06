@@ -70,7 +70,7 @@ function hideLoader() {
 setTimeout(hideLoader, 2500);
 
 // Typing animation for hero title
-const titles = ['ML Enthusiast', 'Python Geek', 'ETL Wizard', 'Pipeline Builder', 'NumPy Nerd'];
+const titles = ['ML Enthusiast', 'Python Geek', 'ETL Wizard', 'Pipeline Builder'];
 let titleIndex = 0;
 let heroCharIndex = 0;
 let isDeleting = false;
