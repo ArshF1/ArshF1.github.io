@@ -161,14 +161,14 @@
                     <div class="experience-content">
                         <div class="experience-header">
                             <h3>Data Engineer</h3>
-                            <span class="experience-date">Present</span>
+                            <span class="experience-date">Aug '25 - Present</span>
                         </div>
-                        <p class="experience-company">Digihumans.ai</p>
+                        <p class="experience-company">Digihumans Technologies Private Limited</p>
                         <ul class="experience-list">
-                            <li>Designed data architecture using Azure Cosmos DB and Blob Storage for structured and unstructured data</li>
-                            <li>Built a web scraper to extract and process full website content into markdown format</li>
-                            <li>Developed a document ingestion pipeline handling PDF, DOCX, and PPTX conversions to markdown</li>
-                            <li>Architected dual-source pipeline system integrating web scraping and document processing outputs</li>
+                            <li>Architected cloud-based data workflows on AWS and Azure, leveraging Cosmos DB and Blob Storage for scalable data management</li>
+                            <li>Built a web scraper using Crawl4AI to extract and process full website content into structured markdown</li>
+                            <li>Implemented Redis message queue and AWS SQS to handle 100+ async tasks/hour for pipeline orchestration</li>
+                            <li>Developed infrastructure automation using Terraform, Ansible, and Jenkins for CI/CD and deployment pipelines</li>
                         </ul>
                     </div>
                 </div>
@@ -258,6 +258,43 @@
     <footer class="footer">
         <p>&copy; 2026 Arsh Sahay. All rights reserved.</p>
     </footer>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-toggle" id="chatbot-toggle" aria-label="Open chatbot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+    </div>
+
+    <div class="chatbot-widget" id="chatbot-widget">
+        <div class="chatbot-header">
+            <div class="chatbot-header-info">
+                <div class="chatbot-avatar">AS</div>
+                <div>
+                    <h4>Arsh's Assistant</h4>
+                    <span class="chatbot-status">Online</span>
+                </div>
+            </div>
+            <button class="chatbot-close" id="chatbot-close" aria-label="Close chatbot">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
+                    <path d="M18 6L6 18M6 6l12 12"/>
+                </svg>
+            </button>
+        </div>
+        <div class="chatbot-messages" id="chatbot-messages">
+            <div class="chat-message bot">
+                <div class="chat-bubble">Hey! 👋 I'm Arsh's assistant. Ask me anything about his skills, experience, or projects!</div>
+            </div>
+        </div>
+        <div class="chatbot-input-area">
+            <input type="text" id="chatbot-input" placeholder="Type a message..." autocomplete="off">
+            <button id="chatbot-send" aria-label="Send message">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+                </svg>
+            </button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>

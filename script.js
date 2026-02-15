@@ -591,3 +591,140 @@ if (perfSettings.enableCursorTrail) {
         cursorRing.classList.remove('click');
     });
 }
+
+
+// Chatbot Widget
+const chatbotToggle = document.getElementById('chatbot-toggle');
+const chatbotWidget = document.getElementById('chatbot-widget');
+const chatbotClose = document.getElementById('chatbot-close');
+const chatbotInput = document.getElementById('chatbot-input');
+const chatbotSend = document.getElementById('chatbot-send');
+const chatbotMessages = document.getElementById('chatbot-messages');
+
+// Toggle chatbot open/close
+chatbotToggle.addEventListener('click', () => {
+    chatbotWidget.classList.toggle('open');
+    if (chatbotWidget.classList.contains('open')) {
+        chatbotInput.focus();
+    }
+});
+
+chatbotClose.addEventListener('click', () => {
+    chatbotWidget.classList.remove('open');
+});
+
+// Send message
+function sendMessage() {
+    const text = chatbotInput.value.trim();
+    if (!text) return;
+
+    // Add user message
+    appendMessage(text, 'user');
+    chatbotInput.value = '';
+
+    // Show typing indicator
+    const typingEl = showTyping();
+
+    // Call backend
+    fetchBotReply(text)
+        .then(data => {
+            typingEl.remove();
+            appendMessage(data.reply, 'bot');
+
+            // Auto-scroll to section if backend suggests one
+            if (data.section) {
+                const target = document.getElementById(data.section);
+                if (target) {
+                    setTimeout(() => {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 400);
+                }
+            }
+        })
+        .catch(() => {
+            typingEl.remove();
+            appendMessage("Oops, something went wrong. Try again!", 'bot');
+        });
+}
+
+function appendMessage(text, sender) {
+    const msg = document.createElement('div');
+    msg.className = `chat-message ${sender}`;
+    const content = sender === 'bot' ? parseMd(text) : escapeHtml(text);
+    msg.innerHTML = `<div class="chat-bubble">${content}</div>`;
+    chatbotMessages.appendChild(msg);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+}
+
+// Lightweight markdown parser for bot replies
+function parseMd(text) {
+    let html = escapeHtml(text);
+    // Code blocks ```
+    html = html.replace(/```(\w*)\n?([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
+    // Inline code
+    html = html.replace(/`([^`]+)`/g, '<code class="chat-inline-code">$1</code>');
+    // Headings: setext style (== and --)
+    html = html.replace(/^(.+)\n=+$/gm, '<strong class="chat-heading">$1</strong>');
+    html = html.replace(/^(.+)\n-+$/gm, '<strong class="chat-subheading">$1</strong>');
+    // Headings: ATX style (### heading)
+    html = html.replace(/^### (.+)$/gm, '<strong class="chat-subheading">$1</strong>');
+    html = html.replace(/^## (.+)$/gm, '<strong class="chat-heading">$1</strong>');
+    html = html.replace(/^# (.+)$/gm, '<strong class="chat-heading">$1</strong>');
+    // Horizontal rules
+    html = html.replace(/^[-*_]{3,}$/gm, '<hr class="chat-hr">');
+    // Bold **text** or __text__
+    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+    html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
+    // Italic *text* or _text_
+    html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+    html = html.replace(/(?<!\w)_(.+?)_(?!\w)/g, '<em>$1</em>');
+    // Links [text](url)
+    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
+    // Unordered lists
+    html = html.replace(/(?:^|\n)[-*] (.+)/g, (m, item) => `<li>${item}</li>`);
+    html = html.replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>');
+    // Ordered lists
+    html = html.replace(/(?:^|\n)\d+\. (.+)/g, (m, item) => `<li>${item}</li>`);
+    // Line breaks
+    html = html.replace(/\n/g, '<br>');
+    // Clean up double <br> inside lists
+    html = html.replace(/<br><ul>/g, '<ul>');
+    html = html.replace(/<\/ul><br>/g, '</ul>');
+    html = html.replace(/<br><hr/g, '<hr');
+    html = html.replace(/hr><br>/g, 'hr>');
+    return html;
+}
+
+function showTyping() {
+    const typing = document.createElement('div');
+    typing.className = 'chat-message bot';
+    typing.innerHTML = `<div class="chat-bubble chat-typing"><span></span><span></span><span></span></div>`;
+    chatbotMessages.appendChild(typing);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+    return typing;
+}
+
+function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
+// Backend API call to local Ollama server
+async function fetchBotReply(userMessage) {
+    const res = await fetch('http://localhost:8000/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMessage })
+    });
+    if (!res.ok) throw new Error('API error');
+    return await res.json();
+}
+
+// Send on Enter key
+chatbotInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') sendMessage();
+});
+
+// Send on button click
+chatbotSend.addEventListener('click', sendMessage);
