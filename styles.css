@@ -1881,6 +1881,30 @@ body:not(.loading) .hero-content {
     margin: 8px 0;
 }
 
+.chat-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0;
+    font-size: 0.82rem;
+}
+
+.chat-table th,
+.chat-table td {
+    border: 1px solid rgba(168, 51, 185, 0.2);
+    padding: 6px 10px;
+    text-align: left;
+}
+
+.chat-table th {
+    background: rgba(168, 51, 185, 0.1);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.chat-table tr:nth-child(even) td {
+    background: rgba(168, 51, 185, 0.04);
+}
+
 .chat-message.user .chat-bubble {
     background: var(--gradient);
     color: #ffffff;

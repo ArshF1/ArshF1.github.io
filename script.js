@@ -618,33 +618,94 @@ function sendMessage() {
     const text = chatbotInput.value.trim();
     if (!text) return;
 
-    // Add user message
     appendMessage(text, 'user');
     chatbotInput.value = '';
 
-    // Show typing indicator
     const typingEl = showTyping();
 
-    // Call backend
-    fetchBotReply(text)
-        .then(data => {
-            typingEl.remove();
-            appendMessage(data.reply, 'bot');
+    streamBotReply(text, typingEl).catch(() => {
+        typingEl.remove();
+        appendMessage("Oops, something went wrong. Try again!", 'bot');
+    });
+}
 
-            // Auto-scroll to section if backend suggests one
-            if (data.section) {
-                const target = document.getElementById(data.section);
-                if (target) {
+// Stream bot reply via SSE
+async function streamBotReply(userMessage, typingEl) {
+    const res = await fetch('http://localhost:8000/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: userMessage })
+    });
+    if (!res.ok) throw new Error('API error');
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+    let botBubble = null;
+    let rawText = '';
+
+    while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop(); // keep incomplete line in buffer
+
+        for (const line of lines) {
+            if (!line.startsWith('data: ')) continue;
+            const data = JSON.parse(line.slice(6));
+
+            if (data.type === 'actions') {
+                // Handle navigation
+                if (data.section) {
+                    const target = document.getElementById(data.section);
+                    if (target) {
+                        setTimeout(() => {
+                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 400);
+                    }
+                }
+                // Handle theme toggle
+                if (data.theme) {
                     setTimeout(() => {
-                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        const currentTheme = document.documentElement.getAttribute('data-theme');
+                        let newTheme;
+                        if (data.theme === 'toggle') {
+                            newTheme = currentTheme === 'light' ? 'dark' : 'light';
+                        } else {
+                            newTheme = data.theme;
+                        }
+                        if (newTheme !== currentTheme) {
+                            document.getElementById('theme-toggle').click();
+                        }
                     }, 400);
                 }
             }
-        })
-        .catch(() => {
-            typingEl.remove();
-            appendMessage("Oops, something went wrong. Try again!", 'bot');
-        });
+
+            if (data.type === 'token') {
+                // Remove typing indicator on first token
+                if (!botBubble) {
+                    typingEl.remove();
+                    const msg = document.createElement('div');
+                    msg.className = 'chat-message bot';
+                    msg.innerHTML = '<div class="chat-bubble"></div>';
+                    chatbotMessages.appendChild(msg);
+                    botBubble = msg.querySelector('.chat-bubble');
+                }
+                rawText += data.content;
+                botBubble.innerHTML = parseMd(rawText);
+                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+            }
+
+            if (data.type === 'done') {
+                // If no tokens were received, remove typing
+                if (!botBubble) {
+                    typingEl.remove();
+                }
+            }
+        }
+    }
 }
 
 function appendMessage(text, sender) {
@@ -663,6 +724,29 @@ function parseMd(text) {
     html = html.replace(/```(\w*)\n?([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
     // Inline code
     html = html.replace(/`([^`]+)`/g, '<code class="chat-inline-code">$1</code>');
+
+    // Tables: detect lines with pipes
+    html = html.replace(/((?:^|\n)\|.+\|(?:\n\|.+\|)+)/g, (tableBlock) => {
+        const rows = tableBlock.trim().split('\n').filter(r => r.trim());
+        if (rows.length < 2) return tableBlock;
+
+        let tableHtml = '<table class="chat-table">';
+        rows.forEach((row, i) => {
+            // Skip separator row (|---|---|)
+            if (/^\|[\s\-:]+\|$/.test(row.trim())) return;
+
+            const cells = row.split('|').filter((c, idx, arr) => idx > 0 && idx < arr.length - 1);
+            const tag = i === 0 ? 'th' : 'td';
+            tableHtml += '<tr>';
+            cells.forEach(cell => {
+                tableHtml += `<${tag}>${cell.trim()}</${tag}>`;
+            });
+            tableHtml += '</tr>';
+        });
+        tableHtml += '</table>';
+        return tableHtml;
+    });
+
     // Headings: setext style (== and --)
     html = html.replace(/^(.+)\n=+$/gm, '<strong class="chat-heading">$1</strong>');
     html = html.replace(/^(.+)\n-+$/gm, '<strong class="chat-subheading">$1</strong>');
@@ -687,11 +771,13 @@ function parseMd(text) {
     html = html.replace(/(?:^|\n)\d+\. (.+)/g, (m, item) => `<li>${item}</li>`);
     // Line breaks
     html = html.replace(/\n/g, '<br>');
-    // Clean up double <br> inside lists
+    // Clean up double <br> inside lists/tables
     html = html.replace(/<br><ul>/g, '<ul>');
     html = html.replace(/<\/ul><br>/g, '</ul>');
     html = html.replace(/<br><hr/g, '<hr');
     html = html.replace(/hr><br>/g, 'hr>');
+    html = html.replace(/<br><table/g, '<table');
+    html = html.replace(/<\/table><br>/g, '</table>');
     return html;
 }
 
@@ -708,17 +794,6 @@ function escapeHtml(str) {
     const div = document.createElement('div');
     div.textContent = str;
     return div.innerHTML;
-}
-
-// Backend API call to local Ollama server
-async function fetchBotReply(userMessage) {
-    const res = await fetch('http://localhost:8000/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMessage })
-    });
-    if (!res.ok) throw new Error('API error');
-    return await res.json();
 }
 
 // Send on Enter key
