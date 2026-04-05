@@ -339,6 +339,20 @@ document.querySelectorAll('.project-card').forEach((card, index) => {
     projectObserver.observe(card);
 });
 
+// Animate home project cards
+const homeProjectObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            homeProjectObserver.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.home-project-card').forEach(card => {
+    homeProjectObserver.observe(card);
+});
+
 // Tilt effect (desktop only)
 if (perfSettings.enableTiltEffect) {
     document.querySelectorAll('.skill-card').forEach(card => {
