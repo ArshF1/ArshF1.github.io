@@ -1,415 +1,391 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Arsh Sahay | Data Engineer</title>
-    <link rel="icon" type="image/png" href="coder.png">
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Arsh Sahay — Data Engineer, ETL Wizard, Pipeline Builder, and RAG Guy." />
+  <title>Arsh Sahay // Data Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-    <!-- Page Loader -->
-    <div class="page-loader" id="page-loader">
-        <div class="loader-content">
-            <div class="loader-logo">AS<span class="loader-dot">.</span></div>
-            <div class="loader-bar">
-                <div class="loader-progress"></div>
-            </div>
-            <div class="loader-text">
-                <span class="loader-typing"></span>
-            </div>
-            <div class="loader-particles">
-                <span>🐍</span>
-                <span>🐼</span>
-                <span>📊</span>
-                <span>🤖</span>
-                <span>💻</span>
-            </div>
-        </div>
-    </div>
+  <!-- Animated background -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
 
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#" class="logo">
-                <span class="logo-text">AS</span>
-                <span class="logo-dot">.</span>
-            </a>
-            <ul class="nav-links">
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#home-projects">Home Projects</a></li>
-                <li><a href="#contact" class="nav-btn">Let's Talk</a></li>
-            </ul>
-            <div class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-                <div class="toggle-track">
-                    <span class="toggle-icon sun">☀️</span>
-                    <span class="toggle-icon moon">🌙</span>
-                    <div class="toggle-thumb"></div>
-                </div>
-            </div>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
-
-    <section class="hero">
-        <div class="hero-bg-animation"></div>
-        <canvas id="particles-canvas"></canvas>
-        <div class="hero-content">
-            <p class="greeting">Hello, I'm</p>
-            <h1 class="name">Arsh Sahay</h1>
-            <h2 class="title">
-                <span class="typing-text"></span><span class="cursor">|</span>
-            </h2>
-            <p class="tagline">Transforming raw data into actionable insights through engineering excellence</p>
-            <div class="hero-buttons">
-                <a href="#contact" class="btn btn-primary">
-                    <span>Get in Touch</span>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M5 12h14M12 5l7 7-7 7"/>
-                    </svg>
-                </a>
-                <a href="#skills" class="btn btn-secondary">View Skills</a>
-            </div>
-            <div class="scroll-indicator">
-                <div class="mouse"></div>
-                <p>Scroll to explore</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">About Me</h2>
-            <div class="about-content">
-                <p>I'm a passionate Data Engineer with expertise in building robust data pipelines and infrastructure. My background in Python, Data Science, and Machine Learning allows me to bridge the gap between raw data and meaningful business solutions.</p>
-                <p>Currently working as a Data Engineer, I specialize in designing scalable data architectures and implementing efficient ETL processes that make data accessible and actionable. With hands-on experience across AWS and Azure cloud platforms, I build and deploy end-to-end data solutions in the cloud.</p>
-            </div>
-        </div>
-    </section>
-</body>
-</html>
-
-    <section id="skills" class="skills">
-        <div class="container">
-            <h2 class="section-title">Skills & Expertise</h2>
-            <div class="skills-grid">
-                <div class="skill-card" data-tilt>
-                    <div class="skill-icon">
-                        <img src="https://media.giphy.com/media/coxQHKASG60HrHtvkt/giphy.gif" alt="Python" class="skill-gif">
-                    </div>
-                    <h3>Python</h3>
-                    <div class="skill-bar"><div class="skill-progress" data-progress="95"></div></div>
-                    <p>Advanced proficiency in Python for data engineering, automation, and building scalable applications</p>
-                </div>
-                <div class="skill-card" data-tilt>
-                    <div class="skill-icon">
-                        <img src="https://media.giphy.com/media/l46Cy1rHbQ92uuLXa/giphy.gif" alt="Data Science" class="skill-gif">
-                    </div>
-                    <h3>Data Science</h3>
-                    <div class="skill-bar"><div class="skill-progress" data-progress="90"></div></div>
-                    <p>Statistical analysis, data visualization, and extracting insights from complex datasets</p>
-                </div>
-                <div class="skill-card" data-tilt>
-                    <div class="skill-icon">
-                        <img src="https://media.giphy.com/media/LaVp0AyqR5bGsC5Cbm/giphy.gif" alt="Machine Learning" class="skill-gif">
-                    </div>
-                    <h3>Machine Learning</h3>
-                    <div class="skill-bar"><div class="skill-progress" data-progress="85"></div></div>
-                    <p>Building and deploying ML models for predictive analytics and pattern recognition</p>
-                </div>
-                <div class="skill-card" data-tilt>
-                    <div class="skill-icon">
-                        <img src="https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif" alt="Pandas" class="skill-gif">
-                    </div>
-                    <h3>Pandas</h3>
-                    <div class="skill-bar"><div class="skill-progress" data-progress="92"></div></div>
-                    <p>Expert data manipulation and analysis using Pandas for efficient data processing</p>
-                </div>
-                <div class="skill-card" data-tilt>
-                    <div class="skill-icon">
-                        <img src="https://media.giphy.com/media/26tn33aiTi1jkl6H6/giphy.gif" alt="NumPy" class="skill-gif">
-                    </div>
-                    <h3>NumPy</h3>
-                    <div class="skill-bar"><div class="skill-progress" data-progress="88"></div></div>
-                    <p>Numerical computing and array operations for high-performance data processing</p>
-                </div>
-                <div class="skill-card" data-tilt>
-                    <div class="skill-icon">
-                        <img src="https://media.giphy.com/media/3oKIPEqDGUULpEU0aQ/giphy.gif" alt="Data Engineering" class="skill-gif">
-                    </div>
-                    <h3>Data Engineering</h3>
-                    <div class="skill-bar"><div class="skill-progress" data-progress="93"></div></div>
-                    <p>Designing and maintaining data pipelines, ETL processes, and data infrastructure</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="experience" class="experience">
-        <div class="container">
-            <h2 class="section-title">Experience</h2>
-            <div class="timeline">
-                <div class="experience-card animate-on-scroll">
-                    <div class="experience-icon">
-                        <img src="https://media.giphy.com/media/qgQUggAC3Pfv687qPC/giphy.gif" alt="Coding" class="exp-gif">
-                    </div>
-                    <div class="experience-content">
-                        <div class="experience-header">
-                            <h3>Data Engineer</h3>
-                            <span class="experience-date">Jan '25 - Present</span>
-                        </div>
-                        <p class="experience-company">Digihumans Technologies Private Limited</p>
-                        <ul class="experience-list">
-                            <li>Architected cloud-based data workflows on AWS and Azure, leveraging Cosmos DB and Blob Storage for scalable data management</li>
-                            <li>Built a web scraper using Crawl4AI to extract and process full website content into structured markdown</li>
-                            <li>Implemented Redis message queue and AWS SQS to handle 100+ async tasks/hour for pipeline orchestration</li>
-                            <li>Developed infrastructure automation using Terraform, Ansible, and Jenkins for CI/CD and deployment pipelines</li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="experience-card animate-on-scroll">
-                    <div class="experience-icon">
-                        <img src="https://media.giphy.com/media/l46Cy1rHbQ92uuLXa/giphy.gif" alt="Data" class="exp-gif">
-                    </div>
-                    <div class="experience-content">
-                        <div class="experience-header">
-                            <h3>ETL Engineer Intern</h3>
-                            <span class="experience-date past">Previous</span>
-                        </div>
-                        <p class="experience-company">Digihumans.ai</p>
-                        <ul class="experience-list">
-                            <li>Built ETL pipelines to extract data from multiple document formats (PDF, DOCX, PPTX)</li>
-                            <li>Implemented transformation logic to convert diverse file types into unified markdown format</li>
-                            <li>Loaded processed data to Azure Blob Storage and Cosmos DB</li>
-                            <li>Automated data workflows using Python for document processing and web scraping</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2 class="section-title">Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card animate-on-scroll">
-                    <div class="project-image">
-                        <div class="project-icon">📊</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Customer Service Request Analysis</h3>
-                        <p>Exploratory data analysis and preprocessing pipeline for NYC 311 service requests dataset. Features data cleaning, feature engineering, and visualization to analyze complaint patterns and resolution times across boroughs.</p>
-                        <div class="project-tech">
-                            <span>Python</span>
-                            <span>Pandas</span>
-                            <span>Jupyter</span>
-                            <span>Data Visualization</span>
-                        </div>
-                        <div class="project-highlights">
-                            <ul>
-                                <li>Analyzed missing values and cleaned dataset with 50%+ threshold</li>
-                                <li>Computed resolution times for complaint type comparison</li>
-                                <li>Created borough-level geographic visualizations</li>
-                                <li>Built EDA pipeline for city-wise complaint analysis</li>
-                            </ul>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/ArshF1/customer_service_request_analysis" target="_blank" rel="noopener noreferrer" class="project-link">
-                                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                                </svg>
-                                View on GitHub
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card animate-on-scroll">
-                    <div class="project-image">
-                        <div class="project-icon">🌤️</div>
-                    </div>
-                    <div class="project-content">
-                        <h3>Weather Agent</h3>
-                        <p>An LLM-powered agentic weather assistant that interprets natural language queries and calls a weather API to fetch real-time weather data. Built with an agentic workflow where the model decides when and how to invoke the API based on user intent. Backend self-hosted on a Raspberry Pi 5 inside a Docker container. Frontend built entirely using Kiro.</p>
-                        <div class="project-tech">
-                            <span>Python</span>
-                            <span>HTML/CSS/JS</span>
-                            <span>LLM</span>
-                            <span>Agentic AI</span>
-                            <span>Weather API</span>
-                            <span>Kiro</span>
-                            <span>Cloudflare</span>
-                            <span>Docker</span>
-                            <span>Raspberry Pi</span>
-                        </div>
-                        <div class="project-highlights">
-                            <ul>
-                                <li>LLM autonomously decides when to call the weather API based on query</li>
-                                <li>Real-time weather data retrieval via agentic tool calling</li>
-                                <li>Backend self-hosted on a Raspberry Pi 5 in Docker, with Cloudflare for HTTPS and secure tunneling</li>
-                                <li>Custom-built frontend using HTML, CSS, and JavaScript with Kiro</li>
-                            </ul>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://project.arshsahay.in/weather-agent" target="_blank" rel="noopener noreferrer" class="project-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                                    <polyline points="15 3 21 3 21 9"/>
-                                    <line x1="10" y1="14" x2="21" y2="3"/>
-                                </svg>
-                                Live Demo
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="home-projects" class="home-projects">
-        <div class="container">
-            <h2 class="section-title">Home Projects</h2>
-            <p class="section-subtitle">Personal infrastructure running 24/7 at home</p>
-            <div class="home-projects-grid">
-                <div class="home-project-card animate-on-scroll">
-                    <div class="home-project-header">
-                        <div class="home-project-icon">🏠</div>
-                        <div class="home-project-status">
-                            <span class="status-dot online"></span>
-                            <span class="status-text">Running</span>
-                        </div>
-                    </div>
-                    <div class="home-project-content">
-                        <h3>Smart Home Assistant</h3>
-                        <p>An intelligent assistant powered by an open-source LLM with custom tool-calling capabilities. It interprets natural language commands and autonomously decides when to control smart lights through Home Assistant integration.</p>
-                        <div class="home-project-tech">
-                            <span>LLM</span>
-                            <span>Custom Tool Calling</span>
-                            <span>Home Assistant</span>
-                            <span>Raspberry Pi 5</span>
-                            <span>Docker</span>
-                        </div>
-                        <div class="home-project-features">
-                            <h4>Key Features</h4>
-                            <ul>
-                                <li><strong>Agentic Decision Making:</strong> LLM analyzes user intent and autonomously decides when to invoke tool calls</li>
-                                <li><strong>Custom Tool Calling:</strong> Purpose-built function calling system designed for smart home control</li>
-                                <li><strong>Home Assistant Integration:</strong> Seamless control of smart lights through Home Assistant's API</li>
-                                <li><strong>Natural Language Interface:</strong> No rigid commands — just speak naturally to control your lights</li>
-                                <li><strong>Self-Hosted:</strong> Runs entirely on local hardware for privacy and reliability</li>
-                            </ul>
-                        </div>
-                        <div class="home-project-architecture">
-                            <h4>Architecture</h4>
-                            <div class="architecture-diagram">
-                                <div class="arch-node user">👤 User</div>
-                                <div class="arch-arrow">→</div>
-                                <div class="arch-node llm">🧠 LLM + Tool Calling</div>
-                                <div class="arch-arrow">→</div>
-                                <div class="arch-node api">🏠 Home Assistant</div>
-                                <div class="arch-arrow">→</div>
-                                <div class="arch-node devices">💡 Lights</div>
-                            </div>
-                        </div>
-                        <div class="home-project-roadmap">
-                            <h4>🚀 What's Next</h4>
-                            <ul>
-                                <li><strong>Fine-tuning LLM:</strong> Training an open-source model specifically for smart home commands and context</li>
-                                <li><strong>Voice Integration:</strong> Implementing speech-to-text for hands-free voice commands</li>
-                                <li><strong>Context Awareness:</strong> Enabling the assistant to understand room context and user preferences</li>
-                            </ul>
-                        </div>
-                        <div class="home-project-links">
-                            <a href="https://www.home-assistant.io/" target="_blank" rel="noopener noreferrer" class="home-project-link">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
-                                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                                    <polyline points="9 22 9 12 15 12 15 22"/>
-                                </svg>
-                                Home Assistant
-                            </a>
-                            <span class="home-project-badge">
-                                <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
-                                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-                                </svg>
-                                Raspberry Pi 5
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Get In Touch</h2>
-            <p class="contact-text">Interested in working together? Feel free to reach out!</p>
-            <div class="contact-buttons">
-                <a href="mailto:official@arshsahay.in" class="btn btn-primary">Say Hello</a>
-            </div>
-            <div class="social-links">
-                <a href="https://www.linkedin.com/in/arshsahay" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="LinkedIn">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-                        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                    </svg>
-                </a>
-                <a href="https://github.com/ArshF1" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="GitHub">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer">
-        <p>&copy; 2026 Arsh Sahay. All rights reserved.</p>
-    </footer>
-
-    <!-- Chatbot Widget -->
-    <div class="chatbot-toggle" id="chatbot-toggle" aria-label="Open chatbot">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="28" height="28">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+  <!-- Navigation -->
+  <header class="nav">
+    <div class="nav__inner">
+      <a href="#home" class="nav__logo">
+        <span class="nav__prompt">&gt;</span> arsh.sh
+      </a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme" title="Toggle light / dark">
+        <svg class="theme-toggle__icon theme-toggle__icon--sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"/>
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
         </svg>
+        <svg class="theme-toggle__icon theme-toggle__icon--moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="nav__links" id="navLinks">
+        <a href="#about">about</a>
+        <a href="#skills">skills</a>
+        <a href="#stack">stack</a>
+        <a href="#projects">projects</a>
+        <a href="#pipeline">pipeline</a>
+        <a href="#contact">contact</a>
+      </nav>
     </div>
+  </header>
 
-    <div class="chatbot-widget" id="chatbot-widget">
-        <div class="chatbot-header">
-            <div class="chatbot-header-info">
-                <div class="chatbot-avatar">AS</div>
-                <div>
-                    <h4>Arsh's Assistant</h4>
-                    <span class="chatbot-status">Online</span>
-                </div>
-            </div>
-            <button class="chatbot-close" id="chatbot-close" aria-label="Close chatbot">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20">
-                    <path d="M18 6L6 18M6 6l12 12"/>
-                </svg>
-            </button>
+  <main>
+    <!-- Hero -->
+    <section id="home" class="hero">
+      <div class="hero__inner">
+        <p class="hero__greeting">// hi, my name is</p>
+        <h1 class="hero__name">Arsh Sahay.</h1>
+        <h2 class="hero__role">
+          I <span class="typed" id="typed"></span><span class="cursor">_</span>
+        </h2>
+        <p class="hero__tagline">
+          Data engineer by trade. I build pipelines that don't break at 2 AM, and RAG systems that actually retrieve the right context. Turning raw chaos into clean, queryable truth.
+        </p>
+        <div class="hero__cta">
+          <a href="#projects" class="btn btn--primary">view_projects()</a>
+          <a href="#contact" class="btn btn--ghost">get_in_touch()</a>
         </div>
-        <div class="chatbot-messages" id="chatbot-messages">
-            <div class="chat-message bot">
-                <div class="chat-bubble">Hey! 👋 I'm Arsh's assistant. Ask me anything about his skills, experience, or projects!</div>
-            </div>
-        </div>
-        <div class="chatbot-input-area">
-            <input type="text" id="chatbot-input" placeholder="Type a message..." autocomplete="off">
-            <button id="chatbot-send" aria-label="Send message">
-                <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
-                    <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-                </svg>
-            </button>
-        </div>
-    </div>
+      </div>
+      <div class="hero__scroll">
+        <span>scroll</span>
+        <div class="hero__scroll-line"></div>
+      </div>
+    </section>
 
-    <script src="script.js"></script>
+    <!-- About -->
+    <section id="about" class="section">
+      <div class="section__head">
+        <span class="section__num">01.</span>
+        <h2 class="section__title">about</h2>
+        <span class="section__line"></span>
+      </div>
+      <div class="about__grid">
+        <div class="about__text">
+          <p>
+            I'm <span class="hl">Arsh Sahay</span> — a data engineer obsessed with turning raw data into actionable outcomes. I design <span class="hl">scalable architectures</span>, ship <span class="hl">end-to-end pipelines</span>, and increasingly, build <span class="hl">agentic AI systems</span> that actually do useful work.
+          </p>
+          <p>
+            I work comfortably across <span class="hl">AWS</span> and <span class="hl">Azure</span> — Cosmos DB, Blob Storage, SQS, Redis, the lot. My happy place is a clean DAG, a self-hosted service on a Raspberry Pi, and a proof that the thing works at 2 AM without paging anyone.
+          </p>
+          <p>
+            I'm also a <span class="hl">Python geek</span>, an <span class="hl">ML enthusiast</span>, and yes — an <span class="hl">ETL wizard</span> and <span class="hl">pipeline builder</span>. When I'm not refactoring infra, I'm fine-tuning an open-source LLM to turn the lights off.
+          </p>
+        </div>
+        <div class="about__card">
+          <div class="about__card-head">
+            <span class="dot dot--red"></span>
+            <span class="dot dot--yellow"></span>
+            <span class="dot dot--green"></span>
+            <span class="about__card-title">system_prompt.txt</span>
+          </div>
+          <pre class="about__card-body"><code><span class="c-muted"># identity</span>
+name: "Arsh Sahay"
+role: "Data Engineer"
+location: "remote-first"
+mode: "always_on"
+
+<span class="c-muted"># self_described_as</span>
+- ml_enthusiast
+- python_geek
+- etl_wizard
+- pipeline_builder
+
+<span class="c-muted"># currently</span>
+- data_engineer: "@ Digihumans"
+- self_hosting: "rpi5 + docker"
+- side_quests: "agentic ai"</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills stats strip -->
+    <section id="skills" class="section section--skills">
+      <div class="section__head">
+        <span class="section__num">02.</span>
+        <h2 class="section__title">core_skills</h2>
+        <span class="section__line"></span>
+      </div>
+      <div class="skills__grid">
+        <div class="skill">
+          <div class="skill__top">
+            <span class="skill__name">Python</span>
+            <span class="skill__pct">95%</span>
+          </div>
+          <div class="skill__bar"><div class="skill__fill" data-pct="95"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill__top">
+            <span class="skill__name">Data Engineering</span>
+            <span class="skill__pct">93%</span>
+          </div>
+          <div class="skill__bar"><div class="skill__fill" data-pct="93"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill__top">
+            <span class="skill__name">Pandas</span>
+            <span class="skill__pct">92%</span>
+          </div>
+          <div class="skill__bar"><div class="skill__fill" data-pct="92"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill__top">
+            <span class="skill__name">Data Science</span>
+            <span class="skill__pct">90%</span>
+          </div>
+          <div class="skill__bar"><div class="skill__fill" data-pct="90"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill__top">
+            <span class="skill__name">NumPy</span>
+            <span class="skill__pct">88%</span>
+          </div>
+          <div class="skill__bar"><div class="skill__fill" data-pct="88"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill__top">
+            <span class="skill__name">Machine Learning</span>
+            <span class="skill__pct">85%</span>
+          </div>
+          <div class="skill__bar"><div class="skill__fill" data-pct="85"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stack -->
+    <section id="stack" class="section">
+      <div class="section__head">
+        <span class="section__num">03.</span>
+        <h2 class="section__title">tech_stack</h2>
+        <span class="section__line"></span>
+      </div>
+      <div class="stack__grid">
+        <div class="stack__group">
+          <h3 class="stack__group-title">/languages</h3>
+          <ul class="stack__list">
+            <li>Python</li>
+            <li>SQL</li>
+            <li>Bash</li>
+          </ul>
+        </div>
+        <div class="stack__group">
+          <h3 class="stack__group-title">/data_and_etl</h3>
+          <ul class="stack__list">
+            <li>Pandas</li>
+            <li>NumPy</li>
+            <li>ETL Pipelines</li>
+            <li>Document Processing</li>
+            <li>Web Scraping</li>
+          </ul>
+        </div>
+        <div class="stack__group">
+          <h3 class="stack__group-title">/cloud_and_storage</h3>
+          <ul class="stack__list">
+            <li>AWS</li>
+            <li>Azure</li>
+            <li>Cosmos DB</li>
+            <li>Azure Blob Storage</li>
+            <li>Cloudflare</li>
+          </ul>
+        </div>
+        <div class="stack__group">
+          <h3 class="stack__group-title">/messaging_and_queues</h3>
+          <ul class="stack__list">
+            <li>Redis</li>
+            <li>AWS SQS</li>
+            <li>Async Task Pipelines</li>
+          </ul>
+        </div>
+        <div class="stack__group">
+          <h3 class="stack__group-title">/ai_and_agentic</h3>
+          <ul class="stack__list">
+            <li>LLMs</li>
+            <li>Tool Calling</li>
+            <li>Crawl4AI</li>
+            <li>FastAPI</li>
+            <li>Machine Learning</li>
+          </ul>
+        </div>
+        <div class="stack__group">
+          <h3 class="stack__group-title">/infra_and_devops</h3>
+          <ul class="stack__list">
+            <li>Terraform</li>
+            <li>Ansible</li>
+            <li>Jenkins</li>
+            <li>Docker</li>
+            <li>Raspberry Pi 5</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="section">
+      <div class="section__head">
+        <span class="section__num">04.</span>
+        <h2 class="section__title">projects</h2>
+        <span class="section__line"></span>
+      </div>
+      <div class="projects__grid">
+        <article class="project">
+          <div class="project__head">
+            <span class="project__icon">⌬</span>
+            <div class="project__links">
+              <a href="https://github.com/ArshF1/customer_service_request_analysis" target="_blank" rel="noopener" aria-label="GitHub repo">↗</a>
+            </div>
+          </div>
+          <h3 class="project__title">customer_service_request_analysis</h3>
+          <p class="project__desc">
+            An end-to-end EDA pipeline over the NYC 311 service-requests dataset. Cleans, engineers features, and visualizes complaint patterns and resolution times across boroughs. Includes a missing-value analysis with a 50%+ threshold and full geographic breakdowns.
+          </p>
+          <ul class="project__tags">
+            <li>Python</li><li>Pandas</li><li>Jupyter</li><li>Data Visualization</li>
+          </ul>
+        </article>
+
+        <article class="project">
+          <div class="project__head">
+            <span class="project__icon">◈</span>
+            <div class="project__links">
+              <a href="https://project.arshsahay.in/weather-agent" target="_blank" rel="noopener" aria-label="Live demo">▷</a>
+            </div>
+          </div>
+          <h3 class="project__title">weather_agent</h3>
+          <p class="project__desc">
+            An LLM-powered agentic assistant that interprets natural language weather queries and autonomously calls a weather API. Backend self-hosted on a Raspberry Pi 5 inside Docker; Cloudflare handles HTTPS and tunneling. Frontend built with Kiro.
+          </p>
+          <ul class="project__tags">
+            <li>Python</li><li>LLM</li><li>Agentic AI</li><li>FastAPI</li><li>Docker</li><li>Raspberry Pi</li>
+          </ul>
+        </article>
+
+        <article class="project project--self">
+          <div class="project__head">
+            <span class="project__icon">◉</span>
+            <div class="project__links">
+              <span class="project__badge" title="Self-hosted, running 24/7">24/7</span>
+            </div>
+          </div>
+          <h3 class="project__title">smart_home_assistant</h3>
+          <p class="project__desc">
+            An open-source LLM with custom tool-calling. Interprets natural-language commands and autonomously controls smart lights through Home Assistant. Fully self-hosted for privacy. Roadmap: fine-tuning, voice input, and room-level context awareness.
+          </p>
+          <ul class="project__tags">
+            <li>LLM</li><li>Tool Calling</li><li>Home Assistant</li><li>Docker</li><li>Raspberry Pi 5</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- Pipeline / Experience -->
+    <section id="pipeline" class="section">
+      <div class="section__head">
+        <span class="section__num">05.</span>
+        <h2 class="section__title">the_pipeline</h2>
+        <span class="section__line"></span>
+      </div>
+      <ol class="pipeline">
+        <li class="pipeline__job">
+          <div class="pipeline__node">
+            <span class="pipeline__dot"></span>
+            <div class="pipeline__year">Jan 2025 — Present</div>
+            <h3 class="pipeline__title">Data Engineer <span class="pipeline__at">@ Digihumans Technologies Pvt. Ltd.</span></h3>
+            <p class="pipeline__desc">
+              <!-- Architected cloud-native data workflows on AWS and Azure — Cosmos DB and Azure Blob Storage for scalable data management. Built a Crawl4AI web scraper that turns full websites into structured markdown. Stood up a Redis + AWS SQS pipeline orchestrating 100+ async tasks per hour. Automated infra with Terraform, Ansible, and Jenkins. -->
+              I work at the intersection of data engineering and intelligent retrieval. As a Data Engineer, I build scalable pipelines that ingest, transform, and structure raw data into usable products. At Digihumans, I designed cloud-native workflows on AWS and Azure, built document processing pipelines for PDFs, DOCX, PPT, and PPTX files, and developed a RAG system that preprocesses documents into markdown, applies intelligent chunking, enriches content with metadata, and uses embeddings for efficient retrieval. I also implemented orchestration and automation using Redis, AWS SQS, Terraform, Ansible, and Jenkins to keep the system reliable and scalable.
+            </p>
+            <ul class="pipeline__tags">
+              <li>AWS</li><li>Azure</li><li>Cosmos DB</li><li>Redis</li><li>SQS</li><li>Crawl4AI</li><li>Terraform</li><li>Jenkins</li>
+            </ul>
+            <ul class="pipeline__tags">
+              <li>Qdrant</li><li>MongoDB</li><li>Embeddings</li><li>Chunking</li><li>Retrieval</li><li>RAG</li><li>Document Processing</li><li>FastAPI</li>
+            </ul>
+          </div>
+        </li>
+        <li class="pipeline__job">
+          <div class="pipeline__node">
+            <span class="pipeline__dot"></span>
+            <div class="pipeline__year">Internship</div>
+            <h3 class="pipeline__title">ETL Engineer Intern <span class="pipeline__at">@ Digihumans Technologies Pvt. Ltd.</span></h3>
+            <p class="pipeline__desc">
+              Built ETL pipelines to extract data from multiple document formats (PDF, DOCX, PPTX). Wrote transformation logic to unify them into a clean markdown format, then loaded them into Azure Blob Storage and Cosmos DB. Automated document processing and web scraping workflows in Python.
+            </p>
+            <ul class="pipeline__tags">
+              <li>Python</li><li>ETL</li><li>Azure Blob</li><li>Cosmos DB</li><li>Document Processing</li>
+            </ul>
+          </div>
+        </li>
+        <li class="pipeline__job">
+          <div class="pipeline__node">
+            <span class="pipeline__dot pipeline__dot--start"></span>
+            <div class="pipeline__year">source ↑</div>
+            <h3 class="pipeline__title">cs_degree &amp; first_pipelines</h3>
+            <p class="pipeline__desc">
+              Started with a CS foundation, a curious mind, and a Jupyter notebook that didn't crash. The rest is git history.
+            </p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="section section--contact">
+      <div class="section__head">
+        <span class="section__num">06.</span>
+        <h2 class="section__title">contact</h2>
+        <span class="section__line"></span>
+      </div>
+      <div class="contact__terminal">
+        <p class="contact__line">
+          <span class="contact__prompt">$</span>
+          <span class="typed-line" id="typedCmd"></span><span class="cursor">_</span>
+        </p>
+        <p class="contact__output" id="contactOutput">
+          Initializing handshake...<br />Routing message...<br />Ready to receive input.
+        </p>
+        <div class="contact__links">
+          <a href="mailto:official@arshsahay.in" class="contact__link">
+            <span class="contact__link-key">email</span>
+            <span class="contact__link-val">official@arshsahay.in</span>
+          </a>
+          <a href="https://www.linkedin.com/in/arshsahay" target="_blank" rel="noopener" class="contact__link">
+            <span class="contact__link-key">linkedin</span>
+            <span class="contact__link-val">/in/arshsahay</span>
+          </a>
+          <a href="https://github.com/ArshF1" target="_blank" rel="noopener" class="contact__link">
+            <span class="contact__link-key">github</span>
+            <span class="contact__link-val">/ArshF1</span>
+          </a>
+          <a href="https://project.arshsahay.in/weather-agent" target="_blank" rel="noopener" class="contact__link">
+            <span class="contact__link-key">weather_agent</span>
+            <span class="contact__link-val">live demo</span>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>
+      <span class="footer__prompt">&gt;</span> built by arsh sahay ·
+      <span id="year"></span> ·
+      <span class="footer__muted">// end of stream</span>
+    </p>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>

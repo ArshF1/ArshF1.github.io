@@ -1,819 +1,386 @@
-// Performance Detection
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-const isLowPower = navigator.hardwareConcurrency ? navigator.hardwareConcurrency <= 4 : isMobile;
-const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const isTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+/* =========================================================
+   Arsh Sahay — Portfolio
+   script.js  ·  interactions, animations, background
+   ========================================================= */
 
-// Performance settings based on device
-const perfSettings = {
-    particleCount: isLowPower ? 10 : (isMobile ? 15 : 50),
-    enableCursorTrail: !isTouch && !isLowPower,
-    enableParticleConnections: !isMobile,
-    enableParallax: !isMobile,
-    enableTiltEffect: !isTouch,
-    animationThrottle: isMobile ? 2 : 1
+(() => {
+  "use strict";
+
+  /* ----------------------------------------------------
+     Footer year
+     ---------------------------------------------------- */
+  const yearEl = document.getElementById("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ----------------------------------------------------
+     Mobile nav toggle
+     ---------------------------------------------------- */
+  const navToggle = document.getElementById("navToggle");
+  const navLinks  = document.getElementById("navLinks");
+
+  if (navToggle && navLinks) {
+    navToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      navToggle.classList.toggle("open", isOpen);
+      navToggle.setAttribute("aria-expanded", String(isOpen));
+    });
+
+    // Close on link click (mobile)
+    navLinks.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        navToggle.classList.remove("open");
+        navToggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+
+  /* ----------------------------------------------------
+     Theme toggle (light / dark)
+     ---------------------------------------------------- */
+  const THEME_KEY = "arsh-portfolio-theme";
+  const root = document.documentElement;
+  const themeBtn = document.getElementById("themeToggle");
+
+  const getInitialTheme = () => {
+    const stored = localStorage.getItem(THEME_KEY);
+    if (stored === "light" || stored === "dark") return stored;
+    return window.matchMedia("(prefers-color-scheme: light)").matches
+      ? "light"
+      : "dark";
+  };
+
+  const applyTheme = (theme) => {
+    root.setAttribute("data-theme", theme);
+    if (themeBtn) {
+      themeBtn.setAttribute(
+        "aria-label",
+        theme === "dark" ? "Switch to light theme" : "Switch to dark theme"
+      );
+    }
+  };
+
+  // Apply the initial theme as early as possible to avoid a flash.
+  applyTheme(getInitialTheme());
+
+  if (themeBtn) {
+    themeBtn.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme") || "dark";
+      const next = current === "dark" ? "light" : "dark";
+      applyTheme(next);
+      localStorage.setItem(THEME_KEY, next);
+    });
+  }
+
+  // Track OS-level changes only if the user hasn't picked manually
+  const media = window.matchMedia("(prefers-color-scheme: light)");
+  media.addEventListener?.("change", (e) => {
+    if (!localStorage.getItem(THEME_KEY)) {
+      applyTheme(e.matches ? "light" : "dark");
+    }
+  });
+
+  /* ----------------------------------------------------
+     Nav background on scroll
+     ---------------------------------------------------- */
+  const nav = document.querySelector(".nav");
+  const onScroll = () => {
+    if (!nav) return;
+    if (window.scrollY > 12) nav.classList.add("scrolled");
+    else nav.classList.remove("scrolled");
+  };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ----------------------------------------------------
+     Typing effect — hero role
+     ---------------------------------------------------- */
+  const roles = [
+    "build ETL pipelines.",
+    "orchestrate data flows.",
+    "ship RAG systems.",
+    "design schemas that scale.",
+    "debug 2 AM production bugs."
+  ];
+
+  const typedEl = document.getElementById("typed");
+  if (typedEl) {
+    let roleIdx = 0;
+    let charIdx = 0;
+    let deleting = false;
+    const TYPING_SPEED = 75;
+    const DELETING_SPEED = 35;
+    const PAUSE_AFTER = 1400;
+    const PAUSE_BEFORE = 400;
+
+    const tick = () => {
+      const current = roles[roleIdx];
+
+      if (!deleting) {
+        charIdx++;
+        typedEl.textContent = current.slice(0, charIdx);
+        if (charIdx === current.length) {
+          deleting = true;
+          setTimeout(tick, PAUSE_AFTER);
+          return;
+        }
+        setTimeout(tick, TYPING_SPEED);
+      } else {
+        charIdx--;
+        typedEl.textContent = current.slice(0, charIdx);
+        if (charIdx === 0) {
+          deleting = false;
+          roleIdx = (roleIdx + 1) % roles.length;
+          setTimeout(tick, PAUSE_BEFORE);
+          return;
+        }
+        setTimeout(tick, DELETING_SPEED);
+      }
+    };
+
+    // kick off after a small delay
+    setTimeout(tick, 600);
+  }
+
+  /* ----------------------------------------------------
+     Typing effect — contact command line
+     ---------------------------------------------------- */
+  const typedCmdEl = document.getElementById("typedCmd");
+  if (typedCmdEl) {
+    const cmd = "ssh arsh@hands-on-data-engineer.dev";
+    let i = 0;
+    const typeCmd = () => {
+      typedCmdEl.textContent = cmd.slice(0, i++);
+      if (i <= cmd.length) setTimeout(typeCmd, 60);
+    };
+    // start when the contact section is in view
+    const contactObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            typeCmd();
+            contactObs.disconnect();
+          }
+        });
+      },
+      { threshold: 0.4 }
+    );
+    const contactSection = document.getElementById("contact");
+    if (contactSection) contactObs.observe(contactSection);
+  }
+
+  /* ----------------------------------------------------
+     Scroll reveal
+     ---------------------------------------------------- */
+  const revealTargets = document.querySelectorAll(
+    ".section__head, .about__text p, .about__card, " +
+    ".stack__group, .project, .pipeline__job, .contact__terminal, .hero__inner > *, " +
+    ".skill"
+  );
+  revealTargets.forEach((el) => el.classList.add("reveal"));
+
+  // Pre-set the --pct custom property for each skill bar from its data-pct
+  document.querySelectorAll(".skill__fill").forEach((fill) => {
+    const pct = fill.getAttribute("data-pct");
+    if (pct) fill.style.setProperty("--pct", pct + "%");
+  });
+
+  const revealObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          // slight stagger for grouped items
+          const delay = entry.target.dataset.delay || i * 60;
+          setTimeout(() => entry.target.classList.add("is-visible"), Math.min(delay, 400));
+
+          // Animate the skill bar fills if this is a skill row
+          if (entry.target.classList.contains("skill")) {
+            const fill = entry.target.querySelector(".skill__fill");
+            if (fill) {
+              setTimeout(() => fill.classList.add("in"), 200);
+            }
+          }
+
+          revealObs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+  );
+  revealTargets.forEach((el) => revealObs.observe(el));
+  
+  // Code by Arsh
+  const initProjectTitleMarquee = () => {
+  document.querySelectorAll(".project__title").forEach((title) => {
+    const text = title.textContent.trim();
+
+    if (!title.querySelector(".project__title-text")) {
+      title.textContent = "";
+      const inner = document.createElement("span");
+      inner.className = "project__title-text";
+      inner.textContent = text;
+      title.appendChild(inner);
+    }
+
+    const inner = title.querySelector(".project__title-text");
+    const overflow = inner.scrollWidth > title.clientWidth + 4;
+
+    if (overflow) {
+      const shift = title.clientWidth - inner.scrollWidth;
+      title.style.setProperty("--project-title-shift", `${shift}px`);
+      title.style.setProperty("--project-title-duration", `${Math.max(6, Math.abs(shift) / 18)}s`);
+      title.classList.add("is-marquee");
+    } else {
+      title.classList.remove("is-marquee");
+    }
+  });
 };
 
-// Page Load Animation
-document.body.classList.add('loading');
+requestAnimationFrame(initProjectTitleMarquee);
+window.addEventListener("resize", () => requestAnimationFrame(initProjectTitleMarquee), { passive: true });
 
-const loaderTexts = [
-    'Initializing...',
-    'Loading Python skills...',
-    'Importing pandas...',
-    'Training ML models...',
-    'Building data pipelines...',
-    'Ready!'
-];
+  /* ----------------------------------------------------
+     Active section highlight in nav
+     ---------------------------------------------------- */
+  const sections = document.querySelectorAll("main section[id]");
+  const navAnchors = document.querySelectorAll(".nav__links a");
 
-const loaderTyping = document.querySelector('.loader-typing');
-let textIndex = 0;
-let charIndex = 0;
-
-function typeLoaderText() {
-    if (textIndex >= loaderTexts.length) return;
-    
-    const currentText = loaderTexts[textIndex];
-    
-    if (charIndex < currentText.length) {
-        loaderTyping.textContent = currentText.substring(0, charIndex + 1);
-        charIndex++;
-        setTimeout(typeLoaderText, 50);
-    } else {
-        setTimeout(() => {
-            charIndex = 0;
-            textIndex++;
-            if (textIndex < loaderTexts.length) {
-                typeLoaderText();
-            }
-        }, 300);
-    }
-}
-
-// Start typing animation
-typeLoaderText();
-
-// Hide loader function
-function hideLoader() {
-    const loader = document.getElementById('page-loader');
-    if (loader) {
-        loader.classList.add('hidden');
-        document.body.classList.remove('loading');
-        
-        setTimeout(() => {
-            loader.remove();
-        }, 500);
-    }
-}
-
-// Hide loader after fixed time
-setTimeout(hideLoader, 2500);
-
-// Typing animation for hero title
-const titles = ['ML Enthusiast', 'Python Geek', 'ETL Wizard', 'Pipeline Builder'];
-let titleIndex = 0;
-let heroCharIndex = 0;
-let isDeleting = false;
-const typingSpeed = 100;
-const deletingSpeed = 50;
-const pauseTime = 2000;
-
-function typeTitle() {
-    const typingText = document.querySelector('.typing-text');
-    if (!typingText) return;
-    
-    const currentTitle = titles[titleIndex];
-    
-    if (isDeleting) {
-        typingText.textContent = currentTitle.substring(0, heroCharIndex - 1);
-        heroCharIndex--;
-    } else {
-        typingText.textContent = currentTitle.substring(0, heroCharIndex + 1);
-        heroCharIndex++;
-    }
-    
-    if (!isDeleting && heroCharIndex === currentTitle.length) {
-        setTimeout(() => { isDeleting = true; }, pauseTime);
-        setTimeout(typeTitle, pauseTime);
-        return;
-    }
-    
-    if (isDeleting && heroCharIndex === 0) {
-        isDeleting = false;
-        titleIndex = (titleIndex + 1) % titles.length;
-    }
-    
-    setTimeout(typeTitle, isDeleting ? deletingSpeed : typingSpeed);
-}
-
-// Start typing animation after page load
-window.addEventListener('load', () => {
-    setTimeout(typeTitle, 1500);
-});
-
-// Smooth scroll for navigation links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
+  if (sections.length && navAnchors.length) {
+    const sectionObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.id;
+            navAnchors.forEach((a) => {
+              const match = a.getAttribute("href") === `#${id}`;
+              a.style.color = match ? "var(--accent)" : "";
             });
-        }
-    });
-});
-
-// Throttled scroll handler
-let scrollTicking = false;
-window.addEventListener('scroll', () => {
-    if (!scrollTicking) {
-        requestAnimationFrame(() => {
-            const navbar = document.querySelector('.navbar');
-            const currentScroll = window.scrollY;
-            
-            if (currentScroll > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-            
-            // Parallax effect (desktop only)
-            if (perfSettings.enableParallax) {
-                const hero = document.querySelector('.hero-content');
-                if (hero && currentScroll < window.innerHeight) {
-                    hero.style.transform = `translateY(${currentScroll * 0.3}px)`;
-                    hero.style.opacity = 1 - (currentScroll / window.innerHeight);
-                }
-            }
-            
-            scrollTicking = false;
+          }
         });
-        scrollTicking = true;
-    }
-});
+      },
+      { rootMargin: "-50% 0px -50% 0px" }
+    );
+    sections.forEach((s) => sectionObs.observe(s));
+  }
 
-// Mobile menu toggle
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
-
-hamburger.addEventListener('click', () => {
-    hamburger.classList.toggle('active');
-    navLinks.classList.toggle('active');
-});
-
-document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
-    });
-});
-
-
-// Theme Toggle with Cat Animation
-const themeToggle = document.getElementById('theme-toggle');
-const html = document.documentElement;
-
-const savedTheme = localStorage.getItem('theme') || 'light';
-html.setAttribute('data-theme', savedTheme);
-
-let isAnimating = false;
-
-function createCatStage(isDarkMode) {
-    const stage = document.createElement('div');
-    stage.className = 'cat-stage';
-    
-    const message = isDarkMode ? '🌙 Switching to dark mode...' : '☀️ Switching to light mode...';
-    
-    stage.innerHTML = `
-        <div class="stage-message">${message}</div>
-        <div class="lamp-post left ${isDarkMode ? 'on' : 'on'}">
-            <svg viewBox="0 0 30 70" fill="none">
-                <rect x="13" y="20" width="4" height="50" fill="#64748b"/>
-                <circle class="lamp-glow" cx="15" cy="15" r="12" fill="#ffd700"/>
-                <path d="M8 20 L22 20 L18 28 L12 28 Z" fill="#4a5568"/>
-            </svg>
-        </div>
-        <div class="light-switch ${isDarkMode ? 'on' : 'off'}">
-            <svg viewBox="0 0 30 80" fill="none">
-                <rect class="switch-pole" x="12" y="30" width="6" height="50" rx="2"/>
-                <g class="switch-toggle">
-                    <circle cx="15" cy="25" r="12" fill="#4a5568" stroke="#64748b" stroke-width="2"/>
-                    <rect x="13" y="20" width="4" height="15" rx="2" fill="#c1df1f"/>
-                </g>
-            </svg>
-        </div>
-        <div class="lamp-post right ${isDarkMode ? 'on' : 'on'}">
-            <svg viewBox="0 0 30 70" fill="none">
-                <rect x="13" y="20" width="4" height="50" fill="#64748b"/>
-                <circle class="lamp-glow" cx="15" cy="15" r="12" fill="#ffd700"/>
-                <path d="M8 20 L22 20 L18 28 L12 28 Z" fill="#4a5568"/>
-            </svg>
-        </div>
-        <div class="theme-cat">
-            <div class="cat-body">
-                <svg viewBox="0 0 100 70" fill="none">
-                    <g class="cat-tail"><path d="M17 38 Q2 35 5 20 Q8 10 15 15" stroke="#2e4057" stroke-width="7" stroke-linecap="round" fill="none"/></g>
-                    <g class="cat-legs-back"><rect x="20" y="50" width="7" height="18" rx="3" fill="#2e4057"/></g>
-                    <rect x="30" y="52" width="7" height="16" rx="3" fill="#1a2634"/>
-                    <ellipse cx="45" cy="40" rx="28" ry="18" fill="#2e4057"/>
-                    <rect x="55" y="52" width="6" height="16" rx="3" fill="#1a2634"/>
-                    <g class="cat-paw-reach"><rect x="63" y="45" width="6" height="23" rx="3" fill="#2e4057"/><ellipse cx="66" cy="68" rx="5" ry="3" fill="#2e4057"/></g>
-                    <circle cx="78" cy="30" r="16" fill="#2e4057"/>
-                    <polygon points="68,18 72,2 80,15" fill="#2e4057"/><polygon points="83,15 91,2 95,18" fill="#2e4057"/>
-                    <polygon points="70,17 73,7 78,15" fill="#ffb6c1"/><polygon points="85,15 90,7 93,17" fill="#ffb6c1"/>
-                    <ellipse cx="73" cy="28" rx="3" ry="4" fill="#c1df1f"/><ellipse cx="84" cy="28" rx="3" ry="4" fill="#c1df1f"/>
-                    <ellipse cx="73" cy="29" rx="1.5" ry="2.5" fill="#0f172a"/><ellipse cx="84" cy="29" rx="1.5" ry="2.5" fill="#0f172a"/>
-                    <polygon points="78,33 76,37 80,37" fill="#ffb6c1"/>
-                    <ellipse cx="78" cy="44" rx="8" ry="3" fill="#a833b9"/><circle cx="78" cy="47" r="3" fill="#c1df1f"/>
-                </svg>
-            </div>
-        </div>
-    `;
-    
-    return stage;
-}
-
-themeToggle.addEventListener('click', () => {
-    if (isAnimating) return;
-    isAnimating = true;
-    
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    const isDarkMode = newTheme === 'dark';
-    
-    const stage = createCatStage(isDarkMode);
-    const cat = stage.querySelector('.theme-cat');
-    const lightSwitch = stage.querySelector('.light-switch');
-    const lamps = stage.querySelectorAll('.lamp-post');
-    const message = stage.querySelector('.stage-message');
-    
-    document.body.appendChild(stage);
-    
-    setTimeout(() => {
-        stage.classList.add('visible');
-        message.classList.add('visible');
-    }, 100);
-    
-    setTimeout(() => {
-        cat.classList.add(isDarkMode ? 'walking' : 'walking-back');
-    }, 400);
-    
-    setTimeout(() => { cat.classList.add('reaching'); }, 1600);
-    
-    setTimeout(() => {
-        lightSwitch.classList.toggle('on');
-        lightSwitch.classList.toggle('off');
-        lamps.forEach(lamp => {
-            lamp.classList.toggle('on');
-            lamp.classList.toggle('off');
-        });
-        html.setAttribute('data-theme', newTheme);
-        localStorage.setItem('theme', newTheme);
-        setTimeout(() => { cat.classList.remove('reaching'); }, 400);
-    }, 1700);
-    
-    setTimeout(() => { message.classList.remove('visible'); }, 2500);
-    setTimeout(() => { stage.classList.remove('visible'); }, 3200);
-    setTimeout(() => { stage.remove(); isAnimating = false; }, 3800);
-});
-
-
-// Intersection Observer for animations (optimized)
-const observerOptions = {
-    threshold: 0.2,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const skillObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-            
-            const progressBar = entry.target.querySelector('.skill-progress');
-            if (progressBar) {
-                const progress = progressBar.getAttribute('data-progress');
-                setTimeout(() => {
-                    progressBar.style.width = progress + '%';
-                }, 300);
-            }
-            skillObserver.unobserve(entry.target); // Stop observing once animated
-        }
-    });
-}, observerOptions);
-
-document.querySelectorAll('.skill-card').forEach((card, index) => {
-    card.style.opacity = '0';
-    card.style.transform = 'translateY(40px)';
-    card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-    skillObserver.observe(card);
-});
-
-const expObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            expObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.3 });
-
-document.querySelectorAll('.experience-card').forEach(card => {
-    expObserver.observe(card);
-});
-
-// Animate project cards
-const projectObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            projectObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.2 });
-
-document.querySelectorAll('.project-card').forEach((card, index) => {
-    card.style.transitionDelay = `${index * 0.1}s`;
-    projectObserver.observe(card);
-});
-
-// Animate home project cards
-const homeProjectObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            homeProjectObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.2 });
-
-document.querySelectorAll('.home-project-card').forEach(card => {
-    homeProjectObserver.observe(card);
-});
-
-// Tilt effect (desktop only)
-if (perfSettings.enableTiltEffect) {
-    document.querySelectorAll('.skill-card').forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = (y - centerY) / 20;
-            const rotateY = (centerX - x) / 20;
-            
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
-        });
-        
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-        });
-    });
-}
-
-
-// Optimized Floating Particles Animation
-const canvas = document.getElementById('particles-canvas');
-if (canvas && !prefersReducedMotion) {
-    const ctx = canvas.getContext('2d');
+  /* ----------------------------------------------------
+     Animated data-flow background canvas
+     ---------------------------------------------------- */
+  const canvas = document.getElementById("bg-canvas");
+  if (canvas && canvas.getContext) {
+    const ctx = canvas.getContext("2d");
+    let w, h;
     let particles = [];
-    let animationId;
-    let frameCount = 0;
-    
-    const colors = ['#a833b9', '#c08552', '#c1df1f', '#9bc4cb', '#2e4057'];
-    const symbols = ['{ }', '< >', '[ ]', '( )', '0', '1'];
-    
-    function resizeCanvas() {
-        canvas.width = canvas.offsetWidth;
-        canvas.height = canvas.offsetHeight;
-    }
-    
-    class Particle {
-        constructor() {
-            this.reset();
+    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    const COUNT_DIVISOR = 9000;   // lower = more particles
+    const MAX_DIST = 140;         // connection distance
+    const SPEED = 0.25;
+
+    // Theme-aware color palettes.
+    // Dark mode uses bright teal that pops on near-black.
+    // Light mode uses deeper teal + slate for contrast on white.
+    const themeColors = {
+      dark: {
+        particle: "94, 234, 212",   // teal-300
+        particleA: 0.55,
+        lineA: 0.18,
+        bgOpacity: 0.55
+      },
+      light: {
+        particle: "13, 148, 136",   // teal-600
+        particleA: 0.55,
+        lineA: 0.22,
+        bgOpacity: 0.7
+      }
+    };
+
+    const getColors = () =>
+      themeColors[document.documentElement.getAttribute("data-theme") || "dark"];
+
+    const resize = () => {
+      w = canvas.width  = window.innerWidth  * dpr;
+      h = canvas.height = window.innerHeight * dpr;
+      canvas.style.width  = window.innerWidth  + "px";
+      canvas.style.height = window.innerHeight + "px";
+      ctx.scale(dpr, dpr);
+
+      const count = Math.min(120, Math.floor((window.innerWidth * window.innerHeight) / COUNT_DIVISOR));
+      particles = Array.from({ length: count }, () => spawn(true));
+    };
+
+    const spawn = (initial = false) => {
+      return {
+        x: Math.random() * window.innerWidth,
+        y: initial ? Math.random() * window.innerHeight : -10,
+        vx: (Math.random() - 0.5) * SPEED,
+        vy: Math.random() * SPEED * 0.6 + SPEED * 0.2,
+        r: Math.random() * 1.4 + 0.4
+      };
+    };
+
+    const step = () => {
+      const W = window.innerWidth;
+      const H = window.innerHeight;
+      const colors = getColors();
+
+      ctx.clearRect(0, 0, W, H);
+
+      // particles
+      for (const p of particles) {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > W) p.vx *= -1;
+        if (p.y > H) {
+          p.y = -10;
+          p.x = Math.random() * W;
         }
-        
-        reset() {
-            this.x = Math.random() * canvas.width;
-            this.y = Math.random() * canvas.height;
-            this.size = Math.random() * 3 + 1;
-            this.speedX = (Math.random() - 0.5) * 0.5;
-            this.speedY = (Math.random() - 0.5) * 0.5;
-            this.color = colors[Math.floor(Math.random() * colors.length)];
-            this.opacity = Math.random() * 0.4 + 0.2;
-            this.isSymbol = Math.random() > 0.8;
-            this.symbol = symbols[Math.floor(Math.random() * symbols.length)];
-            this.rotation = Math.random() * 360;
-            this.rotationSpeed = (Math.random() - 0.5) * 1;
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${colors.particle}, ${colors.particleA})`;
+        ctx.fill();
+      }
+
+      // connecting lines
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const a = particles[i], b = particles[j];
+          const dx = a.x - b.x, dy = a.y - b.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < MAX_DIST) {
+            const alpha = (1 - dist / MAX_DIST) * colors.lineA;
+            ctx.strokeStyle = `rgba(${colors.particle}, ${alpha})`;
+            ctx.lineWidth = 0.6;
+            ctx.beginPath();
+            ctx.moveTo(a.x, a.y);
+            ctx.lineTo(b.x, b.y);
+            ctx.stroke();
+          }
         }
-        
-        update() {
-            this.x += this.speedX;
-            this.y += this.speedY;
-            this.rotation += this.rotationSpeed;
-            
-            if (this.x < -20 || this.x > canvas.width + 20 || this.y < -20 || this.y > canvas.height + 20) {
-                this.reset();
-                if (Math.random() > 0.5) {
-                    this.x = Math.random() > 0.5 ? -10 : canvas.width + 10;
-                    this.y = Math.random() * canvas.height;
-                } else {
-                    this.x = Math.random() * canvas.width;
-                    this.y = Math.random() > 0.5 ? -10 : canvas.height + 10;
-                }
-            }
-        }
-        
-        draw() {
-            ctx.save();
-            ctx.globalAlpha = this.opacity;
-            ctx.fillStyle = this.color;
-            
-            if (this.isSymbol) {
-                ctx.translate(this.x, this.y);
-                ctx.rotate(this.rotation * Math.PI / 180);
-                ctx.font = `${this.size * 4}px monospace`;
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                ctx.fillText(this.symbol, 0, 0);
-            } else {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-            
-            ctx.restore();
-        }
-    }
-    
-    function initParticles() {
-        particles = [];
-        for (let i = 0; i < perfSettings.particleCount; i++) {
-            particles.push(new Particle());
-        }
-    }
-    
-    function connectParticles() {
-        if (!perfSettings.enableParticleConnections) return;
-        
-        const maxDistance = 100;
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const distSq = dx * dx + dy * dy;
-                
-                if (distSq < maxDistance * maxDistance) {
-                    const distance = Math.sqrt(distSq);
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(168, 51, 185, ${0.1 * (1 - distance / maxDistance)})`;
-                    ctx.lineWidth = 0.5;
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.stroke();
-                }
-            }
-        }
-    }
-    
-    function animateParticles() {
-        frameCount++;
-        
-        // Skip frames on mobile for better performance
-        if (frameCount % perfSettings.animationThrottle !== 0) {
-            animationId = requestAnimationFrame(animateParticles);
-            return;
-        }
-        
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
-        particles.forEach(particle => {
-            particle.update();
-            particle.draw();
-        });
-        
-        connectParticles();
-        animationId = requestAnimationFrame(animateParticles);
-    }
-    
-    // Initialize
-    resizeCanvas();
-    initParticles();
-    animateParticles();
-    
-    // Debounced resize
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            resizeCanvas();
-            initParticles();
-        }, 250);
-    });
-    
-    // Pause animation when tab is not visible
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            cancelAnimationFrame(animationId);
-        } else {
-            animateParticles();
-        }
-    });
-}
+      }
 
+      requestAnimationFrame(step);
+    };
 
-// Cursor Trail Effect (Desktop only)
-if (perfSettings.enableCursorTrail) {
-    const cursorDot = document.createElement('div');
-    cursorDot.className = 'cursor-dot';
-    document.body.appendChild(cursorDot);
-    
-    const cursorRing = document.createElement('div');
-    cursorRing.className = 'cursor-ring';
-    document.body.appendChild(cursorRing);
-    
-    let mouseX = 0;
-    let mouseY = 0;
-    let ringX = 0;
-    let ringY = 0;
-    let trailThrottle = 0;
-    
-    const trailColors = ['#a833b9', '#c08552', '#c1df1f', '#9bc4cb'];
-    
-    function createTrailParticle(x, y) {
-        const particle = document.createElement('div');
-        particle.className = 'cursor-trail particle';
-        particle.style.cssText = `left:${x}px;top:${y}px;background:${trailColors[Math.floor(Math.random() * trailColors.length)]}`;
-        document.body.appendChild(particle);
-        setTimeout(() => particle.remove(), 800);
-    }
-    
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        
-        cursorDot.style.left = mouseX + 'px';
-        cursorDot.style.top = mouseY + 'px';
-        
-        trailThrottle++;
-        if (trailThrottle % 4 === 0) {
-            createTrailParticle(mouseX, mouseY);
-        }
-    });
-    
-    function animateCursorRing() {
-        ringX += (mouseX - ringX) * 0.15;
-        ringY += (mouseY - ringY) * 0.15;
-        
-        cursorRing.style.left = ringX + 'px';
-        cursorRing.style.top = ringY + 'px';
-        
-        requestAnimationFrame(animateCursorRing);
-    }
-    animateCursorRing();
-    
-    // Hover effects
-    document.querySelectorAll('a, button, .btn, .skill-card, .nav-links a, .theme-toggle').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            cursorDot.classList.add('hover');
-            cursorRing.classList.add('hover');
-        });
-        
-        el.addEventListener('mouseleave', () => {
-            cursorDot.classList.remove('hover');
-            cursorRing.classList.remove('hover');
-        });
-    });
-    
-    // Click effect
-    document.addEventListener('mousedown', () => {
-        cursorRing.classList.add('click');
-        for (let i = 0; i < 5; i++) {
-            setTimeout(() => {
-                createTrailParticle(
-                    mouseX + (Math.random() - 0.5) * 30,
-                    mouseY + (Math.random() - 0.5) * 30
-                );
-            }, i * 30);
-        }
-    });
-    
-    document.addEventListener('mouseup', () => {
-        cursorRing.classList.remove('click');
-    });
-}
+    // Sync the canvas wrapper opacity with the active theme
+    const syncCanvasOpacity = () => {
+      canvas.style.opacity = String(getColors().bgOpacity);
+    };
+    syncCanvasOpacity();
 
-
-// Chatbot Widget
-const chatbotToggle = document.getElementById('chatbot-toggle');
-const chatbotWidget = document.getElementById('chatbot-widget');
-const chatbotClose = document.getElementById('chatbot-close');
-const chatbotInput = document.getElementById('chatbot-input');
-const chatbotSend = document.getElementById('chatbot-send');
-const chatbotMessages = document.getElementById('chatbot-messages');
-
-// Toggle chatbot open/close
-chatbotToggle.addEventListener('click', () => {
-    chatbotWidget.classList.toggle('open');
-    if (chatbotWidget.classList.contains('open')) {
-        chatbotInput.focus();
-    }
-});
-
-chatbotClose.addEventListener('click', () => {
-    chatbotWidget.classList.remove('open');
-});
-
-// Send message
-function sendMessage() {
-    const text = chatbotInput.value.trim();
-    if (!text) return;
-
-    appendMessage(text, 'user');
-    chatbotInput.value = '';
-
-    const typingEl = showTyping();
-
-    streamBotReply(text, typingEl).catch(() => {
-        typingEl.remove();
-        appendMessage("Oops, something went wrong. Try again!", 'bot');
-    });
-}
-
-// Stream bot reply via SSE
-async function streamBotReply(userMessage, typingEl) {
-    const res = await fetch('http://localhost:8000/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userMessage })
-    });
-    if (!res.ok) throw new Error('API error');
-
-    const reader = res.body.getReader();
-    const decoder = new TextDecoder();
-    let buffer = '';
-    let botBubble = null;
-    let rawText = '';
-
-    while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split('\n');
-        buffer = lines.pop(); // keep incomplete line in buffer
-
-        for (const line of lines) {
-            if (!line.startsWith('data: ')) continue;
-            const data = JSON.parse(line.slice(6));
-
-            if (data.type === 'actions') {
-                // Handle navigation
-                if (data.section) {
-                    const target = document.getElementById(data.section);
-                    if (target) {
-                        setTimeout(() => {
-                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }, 400);
-                    }
-                }
-                // Handle theme toggle
-                if (data.theme) {
-                    setTimeout(() => {
-                        const currentTheme = document.documentElement.getAttribute('data-theme');
-                        let newTheme;
-                        if (data.theme === 'toggle') {
-                            newTheme = currentTheme === 'light' ? 'dark' : 'light';
-                        } else {
-                            newTheme = data.theme;
-                        }
-                        if (newTheme !== currentTheme) {
-                            document.getElementById('theme-toggle').click();
-                        }
-                    }, 400);
-                }
-            }
-
-            if (data.type === 'token') {
-                // Remove typing indicator on first token
-                if (!botBubble) {
-                    typingEl.remove();
-                    const msg = document.createElement('div');
-                    msg.className = 'chat-message bot';
-                    msg.innerHTML = '<div class="chat-bubble"></div>';
-                    chatbotMessages.appendChild(msg);
-                    botBubble = msg.querySelector('.chat-bubble');
-                }
-                rawText += data.content;
-                botBubble.innerHTML = parseMd(rawText);
-                chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-            }
-
-            if (data.type === 'done') {
-                // If no tokens were received, remove typing
-                if (!botBubble) {
-                    typingEl.remove();
-                }
-            }
-        }
-    }
-}
-
-function appendMessage(text, sender) {
-    const msg = document.createElement('div');
-    msg.className = `chat-message ${sender}`;
-    const content = sender === 'bot' ? parseMd(text) : escapeHtml(text);
-    msg.innerHTML = `<div class="chat-bubble">${content}</div>`;
-    chatbotMessages.appendChild(msg);
-    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-}
-
-// Lightweight markdown parser for bot replies
-function parseMd(text) {
-    let html = escapeHtml(text);
-    // Code blocks ```
-    html = html.replace(/```(\w*)\n?([\s\S]*?)```/g, '<pre><code>$2</code></pre>');
-    // Inline code
-    html = html.replace(/`([^`]+)`/g, '<code class="chat-inline-code">$1</code>');
-
-    // Tables: detect lines with pipes
-    html = html.replace(/((?:^|\n)\|.+\|(?:\n\|.+\|)+)/g, (tableBlock) => {
-        const rows = tableBlock.trim().split('\n').filter(r => r.trim());
-        if (rows.length < 2) return tableBlock;
-
-        let tableHtml = '<table class="chat-table">';
-        rows.forEach((row, i) => {
-            // Skip separator row (|---|---|)
-            if (/^\|[\s\-:]+\|$/.test(row.trim())) return;
-
-            const cells = row.split('|').filter((c, idx, arr) => idx > 0 && idx < arr.length - 1);
-            const tag = i === 0 ? 'th' : 'td';
-            tableHtml += '<tr>';
-            cells.forEach(cell => {
-                tableHtml += `<${tag}>${cell.trim()}</${tag}>`;
-            });
-            tableHtml += '</tr>';
-        });
-        tableHtml += '</table>';
-        return tableHtml;
+    // React to live theme toggles without a hard re-init
+    const themeObserver = new MutationObserver(syncCanvasOpacity);
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-theme"]
     });
 
-    // Headings: setext style (== and --)
-    html = html.replace(/^(.+)\n=+$/gm, '<strong class="chat-heading">$1</strong>');
-    html = html.replace(/^(.+)\n-+$/gm, '<strong class="chat-subheading">$1</strong>');
-    // Headings: ATX style (### heading)
-    html = html.replace(/^### (.+)$/gm, '<strong class="chat-subheading">$1</strong>');
-    html = html.replace(/^## (.+)$/gm, '<strong class="chat-heading">$1</strong>');
-    html = html.replace(/^# (.+)$/gm, '<strong class="chat-heading">$1</strong>');
-    // Horizontal rules
-    html = html.replace(/^[-*_]{3,}$/gm, '<hr class="chat-hr">');
-    // Bold **text** or __text__
-    html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-    html = html.replace(/__(.+?)__/g, '<strong>$1</strong>');
-    // Italic *text* or _text_
-    html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
-    html = html.replace(/(?<!\w)_(.+?)_(?!\w)/g, '<em>$1</em>');
-    // Links [text](url)
-    html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
-    // Unordered lists
-    html = html.replace(/(?:^|\n)[-*] (.+)/g, (m, item) => `<li>${item}</li>`);
-    html = html.replace(/(<li>.*<\/li>)/gs, '<ul>$1</ul>');
-    // Ordered lists
-    html = html.replace(/(?:^|\n)\d+\. (.+)/g, (m, item) => `<li>${item}</li>`);
-    // Line breaks
-    html = html.replace(/\n/g, '<br>');
-    // Clean up double <br> inside lists/tables
-    html = html.replace(/<br><ul>/g, '<ul>');
-    html = html.replace(/<\/ul><br>/g, '</ul>');
-    html = html.replace(/<br><hr/g, '<hr');
-    html = html.replace(/hr><br>/g, 'hr>');
-    html = html.replace(/<br><table/g, '<table');
-    html = html.replace(/<\/table><br>/g, '</table>');
-    return html;
-}
+    window.addEventListener("resize", resize, { passive: true });
 
-function showTyping() {
-    const typing = document.createElement('div');
-    typing.className = 'chat-message bot';
-    typing.innerHTML = `<div class="chat-bubble chat-typing"><span></span><span></span><span></span></div>`;
-    chatbotMessages.appendChild(typing);
-    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
-    return typing;
-}
-
-function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-}
-
-// Send on Enter key
-chatbotInput.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') sendMessage();
-});
-
-// Send on button click
-chatbotSend.addEventListener('click', sendMessage);
+    // Respect reduced motion
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    resize();
+    if (!reduce) step();
+  }
+})();
