@@ -1,10 +1,10 @@
 /* =========================================================
-   Arsh Sahay â€” Portfolio
+   Arsh Sahay — Portfolio
    Theme: dark, terminal-inspired, data-pipeline aesthetic
    ========================================================= */
 
 :root {
-  /* defaults â†’ dark theme */
+  /* defaults → dark theme */
   --bg: #0a0e14;
   --bg-elev: #0f141b;
   --bg-elev-2: #141a23;
@@ -761,7 +761,7 @@ body::before {
   line-height: 1.6;
 }
 .pipeline__points li::before {
-  content: "â–¹";
+  content: "\25B9"; /* ▹ as an escape, so file encoding can't break it */
   position: absolute;
   left: 0;
   top: 0;
