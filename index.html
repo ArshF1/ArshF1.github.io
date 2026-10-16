@@ -3,7 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Arsh Sahay — Data Engineer, ETL Wizard, Pipeline Builder, and RAG Guy." />
+  <meta name="description" content="Arsh Sahay, Data Engineer. Cloud data pipelines on AWS and Azure, hierarchical and hybrid RAG systems with FastAPI and Qdrant, and LLM-ready ingestion pipelines." />
+  <meta property="og:title" content="Arsh Sahay // Data Engineer" />
+  <meta property="og:description" content="Cloud data pipelines, hybrid RAG and LLM-ready ingestion. Data Engineer @ Digihumans." />
+  <meta property="og:url" content="https://arshsahay.in/" />
+  <meta property="og:type" content="website" />
+  <link rel="canonical" href="https://arshsahay.in/" />
   <title>Arsh Sahay // Data Engineer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,15 +34,16 @@
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
-      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">
+      <button class="nav__toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
       </button>
-      <nav class="nav__links" id="navLinks">
+      <nav class="nav__links" id="navLinks" aria-label="Primary">
         <a href="#about">about</a>
-        <a href="#skills">skills</a>
-        <a href="#stack">stack</a>
+        <a href="#impact">impact</a>
+        <a href="#experience">experience</a>
         <a href="#projects">projects</a>
-        <a href="#pipeline">pipeline</a>
+        <a href="#skills">stack</a>
+        <a href="#education">education</a>
         <a href="#contact">contact</a>
       </nav>
     </div>
@@ -50,17 +56,18 @@
         <p class="hero__greeting">// hi, my name is</p>
         <h1 class="hero__name">Arsh Sahay.</h1>
         <h2 class="hero__role">
-          I <span class="typed" id="typed"></span><span class="cursor">_</span>
+          I <span class="typed" id="typed">build cloud data pipelines.</span><span class="cursor" aria-hidden="true">_</span>
         </h2>
         <p class="hero__tagline">
-          Data engineer by trade. I build pipelines that don't break at 2 AM, and RAG systems that actually retrieve the right context. Turning raw chaos into clean, queryable truth.
+          Data Engineer at Digihumans. I build cloud data pipelines on AWS and Azure, turn unstructured data into LLM-ready knowledge, and ship hybrid RAG systems that find the right context fast.
         </p>
         <div class="hero__cta">
-          <a href="#projects" class="btn btn--primary">view_projects()</a>
+          <a href="#experience" class="btn btn--primary">view_experience()</a>
+          <a href="#projects" class="btn btn--ghost">view_projects()</a>
           <a href="#contact" class="btn btn--ghost">get_in_touch()</a>
         </div>
       </div>
-      <div class="hero__scroll">
+      <div class="hero__scroll" aria-hidden="true">
         <span>scroll</span>
         <div class="hero__scroll-line"></div>
       </div>
@@ -76,13 +83,13 @@
       <div class="about__grid">
         <div class="about__text">
           <p>
-            I'm <span class="hl">Arsh Sahay</span> — a data engineer obsessed with turning raw data into actionable outcomes. I design <span class="hl">scalable architectures</span>, ship <span class="hl">end-to-end pipelines</span>, and increasingly, build <span class="hl">agentic AI systems</span> that actually do useful work.
+            I'm <span class="hl">Arsh Sahay</span>, a Data Engineer at <span class="hl">Digihumans Technologies</span>. For the last two years I've been turning messy, unstructured data into clean, <span class="hl">LLM-ready knowledge</span>, and building the cloud pipelines on <span class="hl">AWS</span> and <span class="hl">Azure</span> that move it around.
           </p>
           <p>
-            I work comfortably across <span class="hl">AWS</span> and <span class="hl">Azure</span> — Cosmos DB, Blob Storage, SQS, Redis, the lot. My happy place is a clean DAG, a self-hosted service on a Raspberry Pi, and a proof that the thing works at 2 AM without paging anyone.
+            Most of my recent work is in retrieval. I architected a <span class="hl">hierarchical RAG</span> on FastAPI and Qdrant, built a <span class="hl">hybrid dense + BM25 pipeline</span> with Cohere reranking, and extended it with <span class="hl">action-based capabilities</span> like sending email and updating CRM records. That system powers a production Unreal Engine digital human.
           </p>
           <p>
-            I'm also a <span class="hl">Python geek</span>, an <span class="hl">ML enthusiast</span>, and yes — an <span class="hl">ETL wizard</span> and <span class="hl">pipeline builder</span>. When I'm not refactoring infra, I'm fine-tuning an open-source LLM to turn the lights off.
+            I came to engineering from commerce: a B.Com (Hons) in Finance, then an <span class="hl">MCA in Data Science</span> from Jain University. Outside work, I self-host agentic side projects on a <span class="hl">Raspberry Pi 5</span>.
           </p>
         </div>
         <div class="about__card">
@@ -95,141 +102,109 @@
           <pre class="about__card-body"><code><span class="c-muted"># identity</span>
 name: "Arsh Sahay"
 role: "Data Engineer"
-location: "remote-first"
-mode: "always_on"
-
-<span class="c-muted"># self_described_as</span>
-- ml_enthusiast
-- python_geek
-- etl_wizard
-- pipeline_builder
+location: "Lucknow, IN (remote)"
 
 <span class="c-muted"># currently</span>
 - data_engineer: "@ Digihumans"
+- building: "hybrid RAG + agents"
 - self_hosting: "rpi5 + docker"
-- side_quests: "agentic ai"</code></pre>
+
+<span class="c-muted"># focus</span>
+- cloud_data_pipelines
+- hierarchical_rag
+- hybrid_retrieval
+- llm_ready_ingestion
+
+<span class="c-muted"># education</span>
+- mca: "Data Science, 90%"</code></pre>
         </div>
       </div>
     </section>
 
-    <!-- Skills stats strip -->
-    <section id="skills" class="section section--skills">
+    <!-- Impact -->
+    <section id="impact" class="section section--impact">
       <div class="section__head">
         <span class="section__num">02.</span>
-        <h2 class="section__title">core_skills</h2>
+        <h2 class="section__title">impact</h2>
         <span class="section__line"></span>
       </div>
-      <div class="skills__grid">
-        <div class="skill">
-          <div class="skill__top">
-            <span class="skill__name">Python</span>
-            <span class="skill__pct">95%</span>
-          </div>
-          <div class="skill__bar"><div class="skill__fill" data-pct="95"></div></div>
+      <div class="impact__grid">
+        <div class="metric">
+          <div class="metric__value"><span data-count="60">60</span>%</div>
+          <div class="metric__label">faster RAG responses</div>
+          <p class="metric__sub">Avg. response time cut from 20–22s to 8s with hierarchical chunk expansion.</p>
         </div>
-        <div class="skill">
-          <div class="skill__top">
-            <span class="skill__name">Data Engineering</span>
-            <span class="skill__pct">93%</span>
-          </div>
-          <div class="skill__bar"><div class="skill__fill" data-pct="93"></div></div>
+        <div class="metric">
+          <div class="metric__value"><span data-count="50">50</span>%</div>
+          <div class="metric__label">less manual data collection</div>
+          <p class="metric__sub">Crawl4AI full-site crawling, extracted straight into markdown.</p>
         </div>
-        <div class="skill">
-          <div class="skill__top">
-            <span class="skill__name">Pandas</span>
-            <span class="skill__pct">92%</span>
-          </div>
-          <div class="skill__bar"><div class="skill__fill" data-pct="92"></div></div>
+        <div class="metric">
+          <div class="metric__value"><span data-count="2">2</span>+ yrs</div>
+          <div class="metric__label">production data engineering</div>
+          <p class="metric__sub">ETL intern to Data Engineer at Digihumans, fully remote.</p>
         </div>
-        <div class="skill">
-          <div class="skill__top">
-            <span class="skill__name">Data Science</span>
-            <span class="skill__pct">90%</span>
-          </div>
-          <div class="skill__bar"><div class="skill__fill" data-pct="90"></div></div>
-        </div>
-        <div class="skill">
-          <div class="skill__top">
-            <span class="skill__name">NumPy</span>
-            <span class="skill__pct">88%</span>
-          </div>
-          <div class="skill__bar"><div class="skill__fill" data-pct="88"></div></div>
-        </div>
-        <div class="skill">
-          <div class="skill__top">
-            <span class="skill__name">Machine Learning</span>
-            <span class="skill__pct">85%</span>
-          </div>
-          <div class="skill__bar"><div class="skill__fill" data-pct="85"></div></div>
+        <div class="metric">
+          <div class="metric__value"><span data-count="364">364</span>K+</div>
+          <div class="metric__label">records analysed</div>
+          <p class="metric__sub">NYC 311 service requests across 53 variables.</p>
         </div>
       </div>
     </section>
 
-    <!-- Stack -->
-    <section id="stack" class="section">
+    <!-- Experience -->
+    <section id="experience" class="section">
       <div class="section__head">
         <span class="section__num">03.</span>
-        <h2 class="section__title">tech_stack</h2>
+        <h2 class="section__title">experience</h2>
         <span class="section__line"></span>
       </div>
-      <div class="stack__grid">
-        <div class="stack__group">
-          <h3 class="stack__group-title">/languages</h3>
-          <ul class="stack__list">
-            <li>Python</li>
-            <li>SQL</li>
-            <li>Bash</li>
-          </ul>
-        </div>
-        <div class="stack__group">
-          <h3 class="stack__group-title">/data_and_etl</h3>
-          <ul class="stack__list">
-            <li>Pandas</li>
-            <li>NumPy</li>
-            <li>ETL Pipelines</li>
-            <li>Document Processing</li>
-            <li>Web Scraping</li>
-          </ul>
-        </div>
-        <div class="stack__group">
-          <h3 class="stack__group-title">/cloud_and_storage</h3>
-          <ul class="stack__list">
-            <li>AWS</li>
-            <li>Azure</li>
-            <li>Cosmos DB</li>
-            <li>Azure Blob Storage</li>
-            <li>Cloudflare</li>
-          </ul>
-        </div>
-        <div class="stack__group">
-          <h3 class="stack__group-title">/messaging_and_queues</h3>
-          <ul class="stack__list">
-            <li>Redis</li>
-            <li>AWS SQS</li>
-            <li>Async Task Pipelines</li>
-          </ul>
-        </div>
-        <div class="stack__group">
-          <h3 class="stack__group-title">/ai_and_agentic</h3>
-          <ul class="stack__list">
-            <li>LLMs</li>
-            <li>Tool Calling</li>
-            <li>Crawl4AI</li>
-            <li>FastAPI</li>
-            <li>Machine Learning</li>
-          </ul>
-        </div>
-        <div class="stack__group">
-          <h3 class="stack__group-title">/infra_and_devops</h3>
-          <ul class="stack__list">
-            <li>Terraform</li>
-            <li>Ansible</li>
-            <li>Jenkins</li>
-            <li>Docker</li>
-            <li>Raspberry Pi 5</li>
-          </ul>
-        </div>
-      </div>
+      <ol class="pipeline">
+        <li class="pipeline__job">
+          <div class="pipeline__node">
+            <span class="pipeline__dot"></span>
+            <div class="pipeline__year">Jan 2025 — Present · Hyderabad (Remote)</div>
+            <h3 class="pipeline__title">Data Engineer <span class="pipeline__at">@ Digihumans Technologies Pvt. Ltd.</span></h3>
+            <ul class="pipeline__points">
+              <li>Architected a <strong>hierarchical RAG</strong> on FastAPI and Qdrant with parent, sibling and neighbouring chunk expansion, cutting average response time from <strong>20–22s to 8s</strong> (60–63% reduction).</li>
+              <li>Developed a <strong>hybrid retrieval pipeline</strong>: dense + BM25 sparse retrieval, query classification, contextual query expansion, context expansion and Cohere reranking before generation.</li>
+              <li>Added <strong>action-based capabilities</strong> to the RAG system with multi-step execution and prompting for missing inputs, covering email listing, email sending and CRM updates.</li>
+              <li>Designed <strong>cloud data pipelines</strong> on AWS EC2, Lambda, S3 and SQS for scalable processing and workflow automation, including SQS workloads with <strong>queue-depth scaling</strong>.</li>
+              <li>Engineered web-scraping and document ingestion pipelines that turn unstructured data into <strong>LLM-ready data</strong>.</li>
+              <li>Implemented <strong>event-driven workflows</strong> with Azure CosmosDB triggers and Azure Functions, using CosmosDB for logging and Blob Storage for processed data.</li>
+              <li>Supported production infrastructure for an <strong>Unreal Engine digital human</strong> integrated with the RAG, keeping Linux deployments stable.</li>
+            </ul>
+            <ul class="pipeline__tags">
+              <li>FastAPI</li><li>Qdrant</li><li>BM25</li><li>Cohere Rerank</li><li>AWS EC2</li><li>Lambda</li><li>S3</li><li>SQS</li><li>ASG</li><li>Azure Functions</li><li>CosmosDB</li><li>Blob Storage</li><li>Linux</li>
+            </ul>
+          </div>
+        </li>
+        <li class="pipeline__job">
+          <div class="pipeline__node">
+            <span class="pipeline__dot"></span>
+            <div class="pipeline__year">Jul 2024 — Dec 2024 · Hyderabad (Remote)</div>
+            <h3 class="pipeline__title">ETL Engineer (Intern) <span class="pipeline__at">@ Digihumans Technologies Pvt. Ltd.</span></h3>
+            <ul class="pipeline__points">
+              <li>Built a <strong>Crawl4AI</strong> pipeline for dynamic full-site crawling into markdown, reducing manual data collection effort by <strong>50%</strong>.</li>
+              <li>Built a <strong>Docling</strong> document ingestion pipeline that turns unstructured documents into structured markdown for LLM applications.</li>
+              <li>Automated recurring extraction and transformation workflows in <strong>Python</strong>.</li>
+            </ul>
+            <ul class="pipeline__tags">
+              <li>Python</li><li>Crawl4AI</li><li>Docling</li><li>ETL</li><li>Markdown</li>
+            </ul>
+          </div>
+        </li>
+        <li class="pipeline__job">
+          <div class="pipeline__node">
+            <span class="pipeline__dot pipeline__dot--start"></span>
+            <div class="pipeline__year">git init</div>
+            <h3 class="pipeline__title">commerce &rarr; code</h3>
+            <p class="pipeline__desc">
+              Started with a B.Com in Finance, then moved into data with an MCA in Data Science. It turns out balance sheets and data pipelines both care a lot about reconciliation.
+            </p>
+          </div>
+        </li>
+      </ol>
     </section>
 
     <!-- Projects -->
@@ -242,46 +217,62 @@ mode: "always_on"
       <div class="projects__grid">
         <article class="project">
           <div class="project__head">
-            <span class="project__icon">⌬</span>
+            <span class="project__icon" aria-hidden="true">◈</span>
             <div class="project__links">
-              <a href="https://github.com/ArshF1/customer_service_request_analysis" target="_blank" rel="noopener" aria-label="GitHub repo">↗</a>
+              <a href="https://project.arshsahay.in/weather-agent" target="_blank" rel="noopener" aria-label="Weather Agent live demo">▷</a>
             </div>
           </div>
-          <h3 class="project__title">customer_service_request_analysis</h3>
+          <h3 class="project__title">weather_agent</h3>
           <p class="project__desc">
-            An end-to-end EDA pipeline over the NYC 311 service-requests dataset. Cleans, engineers features, and visualizes complaint patterns and resolution times across boroughs. Includes a missing-value analysis with a 50%+ threshold and full geographic breakdowns.
+            An agentic tool-calling workflow on Ollama. The model interprets user intent, calls external weather APIs and folds the tool responses into its final answer. The backend runs in Docker on a Raspberry Pi 5, exposed securely through a Cloudflare tunnel.
           </p>
           <ul class="project__tags">
-            <li>Python</li><li>Pandas</li><li>Jupyter</li><li>Data Visualization</li>
+            <li>Python</li><li>Ollama</li><li>Tool Calling</li><li>FastAPI</li><li>Docker</li><li>Cloudflare Tunnel</li><li>Raspberry Pi 5</li>
           </ul>
         </article>
 
         <article class="project">
           <div class="project__head">
-            <span class="project__icon">◈</span>
+            <span class="project__icon" aria-hidden="true">⚙</span>
             <div class="project__links">
-              <a href="https://project.arshsahay.in/weather-agent" target="_blank" rel="noopener" aria-label="Live demo">▷</a>
+              <a href="https://github.com/ArshF1/Mercedes-Benz_greener_manufacturing" target="_blank" rel="noopener" aria-label="Mercedes-Benz Greener Manufacturing GitHub repo">↗</a>
             </div>
           </div>
-          <h3 class="project__title">weather_agent</h3>
+          <h3 class="project__title">mercedes_benz_greener_manufacturing</h3>
           <p class="project__desc">
-            An LLM-powered agentic assistant that interprets natural language weather queries and autonomously calls a weather API. Backend self-hosted on a Raspberry Pi 5 inside Docker; Cloudflare handles HTTPS and tunneling. Frontend built with Kiro.
+            Descriptive analysis with Matplotlib to explore variables and improve dataset reliability, followed by cleaning, feature engineering and a train/test split. Machine learning in Scikit-learn to evaluate model accuracy.
           </p>
           <ul class="project__tags">
-            <li>Python</li><li>LLM</li><li>Agentic AI</li><li>FastAPI</li><li>Docker</li><li>Raspberry Pi</li>
+            <li>Python</li><li>Scikit-learn</li><li>Matplotlib</li><li>Jupyter</li><li>Machine Learning</li>
+          </ul>
+        </article>
+
+        <article class="project">
+          <div class="project__head">
+            <span class="project__icon" aria-hidden="true">⌬</span>
+            <div class="project__links">
+              <a href="https://github.com/ArshF1/customer_service_request_analysis" target="_blank" rel="noopener" aria-label="Customer Service Request Analysis GitHub repo">↗</a>
+            </div>
+          </div>
+          <h3 class="project__title">customer_service_request_analysis</h3>
+          <p class="project__desc">
+            EDA over 364,558 NYC 311 service requests and 53 variables. Profiles shape and null values, removes entries with invalid timelines from the date columns, and compares average response time across complaint types.
+          </p>
+          <ul class="project__tags">
+            <li>Python</li><li>Pandas</li><li>Jupyter</li><li>Data Cleaning</li><li>Data Visualization</li>
           </ul>
         </article>
 
         <article class="project project--self">
           <div class="project__head">
-            <span class="project__icon">◉</span>
+            <span class="project__icon" aria-hidden="true">◉</span>
             <div class="project__links">
               <span class="project__badge" title="Self-hosted, running 24/7">24/7</span>
             </div>
           </div>
           <h3 class="project__title">smart_home_assistant</h3>
           <p class="project__desc">
-            An open-source LLM with custom tool-calling. Interprets natural-language commands and autonomously controls smart lights through Home Assistant. Fully self-hosted for privacy. Roadmap: fine-tuning, voice input, and room-level context awareness.
+            An open-source LLM with custom tool calling that interprets natural-language commands and controls smart lights through Home Assistant. Fully self-hosted for privacy. Roadmap: fine-tuning, voice input and room-level context.
           </p>
           <ul class="project__tags">
             <li>LLM</li><li>Tool Calling</li><li>Home Assistant</li><li>Docker</li><li>Raspberry Pi 5</li>
@@ -290,71 +281,121 @@ mode: "always_on"
       </div>
     </section>
 
-    <!-- Pipeline / Experience -->
-    <section id="pipeline" class="section">
+    <!-- Tech stack -->
+    <section id="skills" class="section">
       <div class="section__head">
         <span class="section__num">05.</span>
-        <h2 class="section__title">the_pipeline</h2>
+        <h2 class="section__title">tech_stack</h2>
         <span class="section__line"></span>
       </div>
-      <ol class="pipeline">
-        <li class="pipeline__job">
-          <div class="pipeline__node">
-            <span class="pipeline__dot"></span>
-            <div class="pipeline__year">Jan 2025 — Present</div>
-            <h3 class="pipeline__title">Data Engineer <span class="pipeline__at">@ Digihumans Technologies Pvt. Ltd.</span></h3>
-            <p class="pipeline__desc">
-              <!-- Architected cloud-native data workflows on AWS and Azure — Cosmos DB and Azure Blob Storage for scalable data management. Built a Crawl4AI web scraper that turns full websites into structured markdown. Stood up a Redis + AWS SQS pipeline orchestrating 100+ async tasks per hour. Automated infra with Terraform, Ansible, and Jenkins. -->
-              I work at the intersection of data engineering and intelligent retrieval. As a Data Engineer, I build scalable pipelines that ingest, transform, and structure raw data into usable products. At Digihumans, I designed cloud-native workflows on AWS and Azure, built document processing pipelines for PDFs, DOCX, PPT, and PPTX files, and developed a RAG system that preprocesses documents into markdown, applies intelligent chunking, enriches content with metadata, and uses embeddings for efficient retrieval. I also implemented orchestration and automation using Redis, AWS SQS, Terraform, Ansible, and Jenkins to keep the system reliable and scalable.
-            </p>
-            <ul class="pipeline__tags">
-              <li>AWS</li><li>Azure</li><li>Cosmos DB</li><li>Redis</li><li>SQS</li><li>Crawl4AI</li><li>Terraform</li><li>Jenkins</li>
-            </ul>
-            <ul class="pipeline__tags">
-              <li>Qdrant</li><li>MongoDB</li><li>Embeddings</li><li>Chunking</li><li>Retrieval</li><li>RAG</li><li>Document Processing</li><li>FastAPI</li>
-            </ul>
+      <div class="stack__grid">
+        <div class="stack__group">
+          <h3 class="stack__group-title">/software_and_data</h3>
+          <ul class="stack__list">
+            <li>Python</li>
+            <li>SQL</li>
+            <li>ETL</li>
+            <li>Web Scraping</li>
+            <li>MongoDB</li>
+            <li>Pandas</li>
+          </ul>
+        </div>
+        <div class="stack__group">
+          <h3 class="stack__group-title">/ai_and_retrieval</h3>
+          <ul class="stack__list">
+            <li>RAG</li>
+            <li>Qdrant</li>
+            <li>BM25</li>
+            <li>Cohere Reranking</li>
+            <li>Ollama</li>
+            <li>Tool Calling</li>
+          </ul>
+        </div>
+        <div class="stack__group">
+          <h3 class="stack__group-title">/ingestion</h3>
+          <ul class="stack__list">
+            <li>Crawl4AI</li>
+            <li>Docling</li>
+            <li>Document Processing</li>
+            <li>Markdown Pipelines</li>
+          </ul>
+        </div>
+        <div class="stack__group">
+          <h3 class="stack__group-title">/aws</h3>
+          <ul class="stack__list">
+            <li>EC2</li>
+            <li>Lambda</li>
+            <li>SQS</li>
+            <li>S3</li>
+            <li>ASG</li>
+            <li>Bedrock</li>
+          </ul>
+        </div>
+        <div class="stack__group">
+          <h3 class="stack__group-title">/azure</h3>
+          <ul class="stack__list">
+            <li>CosmosDB</li>
+            <li>Azure Functions</li>
+            <li>Blob Storage</li>
+          </ul>
+        </div>
+        <div class="stack__group">
+          <h3 class="stack__group-title">/backend_and_infra</h3>
+          <ul class="stack__list">
+            <li>FastAPI</li>
+            <li>Docker</li>
+            <li>Linux</li>
+            <li>Jenkins</li>
+            <li>NGINX</li>
+            <li>Cloudflare Tunnel</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Education -->
+    <section id="education" class="section">
+      <div class="section__head">
+        <span class="section__num">06.</span>
+        <h2 class="section__title">education</h2>
+        <span class="section__line"></span>
+      </div>
+      <div class="edu__grid">
+        <article class="edu">
+          <div class="edu__top">
+            <span class="edu__years">Jan 2024 — Dec 2025</span>
+            <span class="edu__score" title="Score">90%</span>
           </div>
-        </li>
-        <li class="pipeline__job">
-          <div class="pipeline__node">
-            <span class="pipeline__dot"></span>
-            <div class="pipeline__year">Internship</div>
-            <h3 class="pipeline__title">ETL Engineer Intern <span class="pipeline__at">@ Digihumans Technologies Pvt. Ltd.</span></h3>
-            <p class="pipeline__desc">
-              Built ETL pipelines to extract data from multiple document formats (PDF, DOCX, PPTX). Wrote transformation logic to unify them into a clean markdown format, then loaded them into Azure Blob Storage and Cosmos DB. Automated document processing and web scraping workflows in Python.
-            </p>
-            <ul class="pipeline__tags">
-              <li>Python</li><li>ETL</li><li>Azure Blob</li><li>Cosmos DB</li><li>Document Processing</li>
-            </ul>
+          <h3 class="edu__degree">Master of Computer Applications</h3>
+          <p class="edu__school">Jain University · Bangalore</p>
+          <p class="edu__focus">specialization: <span>Data Science</span></p>
+        </article>
+        <article class="edu">
+          <div class="edu__top">
+            <span class="edu__years">Oct 2020 — Jul 2023</span>
+            <span class="edu__score" title="Score">70%</span>
           </div>
-        </li>
-        <li class="pipeline__job">
-          <div class="pipeline__node">
-            <span class="pipeline__dot pipeline__dot--start"></span>
-            <div class="pipeline__year">source ↑</div>
-            <h3 class="pipeline__title">cs_degree &amp; first_pipelines</h3>
-            <p class="pipeline__desc">
-              Started with a CS foundation, a curious mind, and a Jupyter notebook that didn't crash. The rest is git history.
-            </p>
-          </div>
-        </li>
-      </ol>
+          <h3 class="edu__degree">Bachelor of Commerce (Hons)</h3>
+          <p class="edu__school">College of Innovative Management and Science · Lucknow</p>
+          <p class="edu__focus">specialization: <span>Finance</span></p>
+        </article>
+      </div>
     </section>
 
     <!-- Contact -->
     <section id="contact" class="section section--contact">
       <div class="section__head">
-        <span class="section__num">06.</span>
+        <span class="section__num">07.</span>
         <h2 class="section__title">contact</h2>
         <span class="section__line"></span>
       </div>
       <div class="contact__terminal">
         <p class="contact__line">
           <span class="contact__prompt">$</span>
-          <span class="typed-line" id="typedCmd"></span><span class="cursor">_</span>
+          <span class="typed-line" id="typedCmd"></span><span class="cursor" aria-hidden="true">_</span>
         </p>
         <p class="contact__output" id="contactOutput">
-          Initializing handshake...<br />Routing message...<br />Ready to receive input.
+          Initializing handshake...<br />Routing message...<br />Open to data engineering and RAG roles. Ready to receive input.
         </p>
         <div class="contact__links">
           <a href="mailto:official@arshsahay.in" class="contact__link">

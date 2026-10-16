@@ -96,11 +96,11 @@
      Typing effect — hero role
      ---------------------------------------------------- */
   const roles = [
-    "build ETL pipelines.",
-    "orchestrate data flows.",
-    "ship RAG systems.",
-    "design schemas that scale.",
-    "debug 2 AM production bugs."
+    "build cloud data pipelines.",
+    "architect hierarchical RAG.",
+    "tune hybrid retrieval.",
+    "turn docs into LLM-ready data.",
+    "cut response times by 60%."
   ];
 
   const typedEl = document.getElementById("typed");
@@ -147,7 +147,7 @@
      ---------------------------------------------------- */
   const typedCmdEl = document.getElementById("typedCmd");
   if (typedCmdEl) {
-    const cmd = "ssh arsh@hands-on-data-engineer.dev";
+    const cmd = "ssh arsh@arshsahay.in";
     let i = 0;
     const typeCmd = () => {
       typedCmdEl.textContent = cmd.slice(0, i++);
@@ -175,15 +175,25 @@
   const revealTargets = document.querySelectorAll(
     ".section__head, .about__text p, .about__card, " +
     ".stack__group, .project, .pipeline__job, .contact__terminal, .hero__inner > *, " +
-    ".skill"
+    ".metric, .edu"
   );
   revealTargets.forEach((el) => el.classList.add("reveal"));
 
-  // Pre-set the --pct custom property for each skill bar from its data-pct
-  document.querySelectorAll(".skill__fill").forEach((fill) => {
-    const pct = fill.getAttribute("data-pct");
-    if (pct) fill.style.setProperty("--pct", pct + "%");
-  });
+  // Count-up animation for impact metrics (final value stays in the HTML for no-JS / crawlers)
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const countUp = (el) => {
+    const target = parseInt(el.dataset.count, 10);
+    if (Number.isNaN(target) || prefersReducedMotion) return;
+    const duration = 1100;
+    const start = performance.now();
+    const frame = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = String(Math.round(target * eased));
+      if (t < 1) requestAnimationFrame(frame);
+    };
+    requestAnimationFrame(frame);
+  };
 
   const revealObs = new IntersectionObserver(
     (entries) => {
@@ -193,12 +203,9 @@
           const delay = entry.target.dataset.delay || i * 60;
           setTimeout(() => entry.target.classList.add("is-visible"), Math.min(delay, 400));
 
-          // Animate the skill bar fills if this is a skill row
-          if (entry.target.classList.contains("skill")) {
-            const fill = entry.target.querySelector(".skill__fill");
-            if (fill) {
-              setTimeout(() => fill.classList.add("in"), 200);
-            }
+          // Count up the number if this is an impact metric
+          if (entry.target.classList.contains("metric")) {
+            entry.target.querySelectorAll("[data-count]").forEach(countUp);
           }
 
           revealObs.unobserve(entry.target);

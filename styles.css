@@ -460,49 +460,96 @@ body::before {
 }
 .stack__group:hover::before { transform: scaleX(1); }
 
-/* ---------- Skills (stats strip) ---------- */
-.section--skills { padding-top: 40px; padding-bottom: 40px; }
-.skills__grid {
+/* ---------- Impact (metrics strip) ---------- */
+.section--impact { padding-top: 40px; padding-bottom: 60px; }
+.impact__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 18px 28px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
 }
-.skill {
-  padding: 4px 0;
+.metric {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px;
+  transition: all var(--tx);
 }
-.skill__top {
+.metric:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 14px 40px -18px var(--accent-glow);
+}
+.metric__value {
+  font-family: var(--font-mono);
+  font-size: clamp(1.9rem, 4vw, 2.4rem);
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1.1;
+  margin-bottom: 6px;
+  font-variant-numeric: tabular-nums;
+}
+.metric__label {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+.metric__sub {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  line-height: 1.55;
+}
+
+/* ---------- Education ---------- */
+.edu__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 22px;
+}
+.edu {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  transition: all var(--tx);
+}
+.edu:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+.edu__top {
   display: flex;
   justify-content: space-between;
-  align-items: baseline;
-  margin-bottom: 8px;
+  align-items: center;
+  margin-bottom: 12px;
   font-family: var(--font-mono);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
 }
-.skill__name {
-  color: var(--text);
-  font-weight: 500;
-}
-.skill__pct {
+.edu__years { color: var(--text-dim); }
+.edu__score {
   color: var(--accent);
+  border: 1px solid var(--accent);
+  background: var(--accent-soft);
+  border-radius: 999px;
+  padding: 2px 10px;
   font-weight: 600;
 }
-.skill__bar {
-  height: 6px;
-  background: var(--bg-elev-2);
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  overflow: hidden;
-  position: relative;
+.edu__degree {
+  margin: 0 0 6px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
 }
-.skill__fill {
-  height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  border-radius: 999px;
-  transition: width 1.1s cubic-bezier(0.22, 1, 0.36, 1);
-  box-shadow: 0 0 12px var(--accent-glow);
+.edu__school {
+  margin: 0 0 10px;
+  color: var(--text-muted);
+  font-size: 0.92rem;
 }
-.skill__fill.in { width: var(--pct); }
+.edu__focus {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+.edu__focus span { color: var(--accent); }
 
 .stack__group-title {
   font-family: var(--font-mono);
@@ -697,11 +744,35 @@ body::before {
   font-size: 0.95rem;
   margin: 0 0 12px;
 }
+.pipeline__points {
+  margin: 0 0 14px;
+  display: grid;
+  gap: 8px;
+}
+.pipeline__points li {
+  position: relative;
+  padding-left: 20px;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.pipeline__points li::before {
+  content: "▹";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--accent);
+}
+.pipeline__points strong { color: var(--text); font-weight: 600; }
 .pipeline__tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .pipeline__tags li {
   font-family: var(--font-mono);
   font-size: 0.72rem;
   color: var(--text-dim);
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--bg-elev-2);
 }
 
 /* ---------- Contact ---------- */
@@ -789,14 +860,14 @@ body::before {
     right: 0;
     flex-direction: column;
     gap: 0;
-    background: rgba(10, 14, 20, 0.98);
+    background: var(--bg-elev);
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border);
     max-height: 0;
     overflow: hidden;
     transition: max-height var(--tx);
   }
-  .nav__links.open { max-height: 360px; }
+  .nav__links.open { max-height: 480px; }
   .nav__links a {
     padding: 16px 24px;
     border-top: 1px solid var(--border);
