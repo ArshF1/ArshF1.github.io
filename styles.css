@@ -1,10 +1,10 @@
 /* =========================================================
-   Arsh Sahay — Portfolio
+   Arsh Sahay â€” Portfolio
    Theme: dark, terminal-inspired, data-pipeline aesthetic
    ========================================================= */
 
 :root {
-  /* defaults → dark theme */
+  /* defaults â†’ dark theme */
   --bg: #0a0e14;
   --bg-elev: #0f141b;
   --bg-elev-2: #141a23;
@@ -82,6 +82,10 @@ body {
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
 }
+/* Clip the project film strip at the content wrapper. Unlike body overflow
+   (which propagates to the viewport and stays programmatically scrollable),
+   clip on <main> means focus or scripts can't shove the page sideways. */
+main { overflow-x: clip; }
 a { color: var(--accent); text-decoration: none; transition: color var(--tx); }
 a:hover { color: var(--accent-2); }
 ul { list-style: none; padding: 0; margin: 0; }
@@ -101,7 +105,7 @@ button { font-family: inherit; cursor: pointer; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all var(--tx);
+  transition: color var(--tx), background-color var(--tx), border-color var(--tx), box-shadow var(--tx), translate var(--tx), rotate var(--tx);
   order: 3;
   margin-left: 8px;
   padding: 0;
@@ -110,7 +114,7 @@ button { font-family: inherit; cursor: pointer; }
   color: var(--accent);
   border-color: var(--accent);
   background: var(--accent-soft);
-  transform: rotate(15deg);
+  rotate: 15deg;
 }
 .theme-toggle__icon {
   width: 18px;
@@ -288,7 +292,7 @@ body::before {
   padding: 12px 22px;
   border-radius: var(--radius-sm);
   border: 1px solid transparent;
-  transition: all var(--tx);
+  transition: color var(--tx), background-color var(--tx), border-color var(--tx), box-shadow var(--tx), translate var(--tx), rotate var(--tx);
   display: inline-block;
   cursor: pointer;
 }
@@ -300,7 +304,7 @@ body::before {
 }
 .btn--primary:hover {
   background: var(--accent-soft);
-  transform: translateY(-2px);
+  translate: 0 -2px;
   box-shadow: 0 6px 24px -8px var(--accent-glow);
   color: var(--accent-2);
 }
@@ -312,7 +316,7 @@ body::before {
 .btn--ghost:hover {
   border-color: var(--accent);
   color: var(--accent);
-  transform: translateY(-2px);
+  translate: 0 -2px;
 }
 
 .hero__scroll {
@@ -438,7 +442,7 @@ body::before {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 22px 22px 24px;
-  transition: all var(--tx);
+  transition: color var(--tx), background-color var(--tx), border-color var(--tx), box-shadow var(--tx), translate var(--tx), rotate var(--tx);
   position: relative;
   overflow: hidden;
 }
@@ -456,7 +460,7 @@ body::before {
 }
 .stack__group:hover {
   border-color: var(--border-strong);
-  transform: translateY(-3px);
+  translate: 0 -3px;
 }
 .stack__group:hover::before { transform: scaleX(1); }
 
@@ -472,11 +476,11 @@ body::before {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 22px;
-  transition: all var(--tx);
+  transition: color var(--tx), background-color var(--tx), border-color var(--tx), box-shadow var(--tx), translate var(--tx), rotate var(--tx);
 }
 .metric:hover {
   border-color: var(--accent);
-  transform: translateY(-3px);
+  translate: 0 -3px;
   box-shadow: 0 14px 40px -18px var(--accent-glow);
 }
 .metric__value {
@@ -512,9 +516,9 @@ body::before {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 24px;
-  transition: all var(--tx);
+  transition: color var(--tx), background-color var(--tx), border-color var(--tx), box-shadow var(--tx), translate var(--tx), rotate var(--tx);
 }
-.edu:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+.edu:hover { border-color: var(--border-strong); translate: 0 -3px; }
 .edu__top {
   display: flex;
   justify-content: space-between;
@@ -567,7 +571,7 @@ body::before {
   border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   color: var(--text);
-  transition: all var(--tx);
+  transition: color var(--tx), background-color var(--tx), border-color var(--tx), box-shadow var(--tx), translate var(--tx), rotate var(--tx);
 }
 .stack__list li:hover {
   color: var(--accent);
@@ -586,7 +590,7 @@ body::before {
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 24px;
-  transition: all var(--tx);
+  transition: color var(--tx), background-color var(--tx), border-color var(--tx), box-shadow var(--tx), translate var(--tx), rotate var(--tx);
   display: flex;
   flex-direction: column;
   position: relative;
@@ -603,7 +607,7 @@ body::before {
 }
 .project:hover {
   border-color: var(--accent);
-  transform: translateY(-4px);
+  translate: 0 -4px;
 }
 .project:hover::after {
   box-shadow: 0 14px 40px -16px var(--accent-glow);
@@ -757,7 +761,7 @@ body::before {
   line-height: 1.6;
 }
 .pipeline__points li::before {
-  content: "▹";
+  content: "â–¹";
   position: absolute;
   left: 0;
   top: 0;
@@ -814,12 +818,12 @@ body::before {
   color: var(--text);
   font-family: var(--font-mono);
   font-size: 0.85rem;
-  transition: all var(--tx);
+  transition: color var(--tx), background-color var(--tx), border-color var(--tx), box-shadow var(--tx), translate var(--tx), rotate var(--tx);
 }
 .contact__link:hover {
   border-color: var(--accent);
   color: var(--accent);
-  transform: translateX(3px);
+  translate: 3px 0;
   background: var(--accent-soft);
 }
 .contact__link-key { color: var(--text-dim); }
@@ -847,6 +851,133 @@ body::before {
 .reveal.is-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* =========================================================
+   Motion layer (motion.js). Every rule here only changes
+   appearance once JS has added .has-motion / .is-strip etc.
+   ========================================================= */
+
+/* Lenis drives scrolling; native smooth-scroll would fight it */
+html.lenis { scroll-behavior: auto; }
+
+/* Hero stays hidden for a moment until the intro plays (failsafe in <head>) */
+.motion-pending .hero__inner,
+.motion-pending .hero__scroll { visibility: hidden; }
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus target for in-page links; the section itself doesn't need a ring */
+section[tabindex="-1"]:focus { outline: none; }
+
+/* Hero name split into characters */
+.hero__name .word {
+  display: inline-block;
+  white-space: nowrap;
+  perspective: 600px;
+}
+.hero__name .char { display: inline-block; }
+
+/* Reading progress bar */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  z-index: 101;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 10px var(--accent-glow);
+  transform: scaleX(0);
+  transform-origin: left center;
+  pointer-events: none;
+}
+
+/* Experience rail: dim track, glowing progress and a travelling data pulse */
+.has-motion .pipeline::before { background: var(--border); }
+.pipeline__rail {
+  position: absolute;
+  left: 7px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  pointer-events: none;
+}
+.pipeline__progress {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: linear-gradient(to bottom, var(--accent), var(--accent-2));
+  box-shadow: 0 0 12px var(--accent-glow);
+  transform: scaleY(0);
+  transform-origin: top center;
+}
+.pipeline__pulse {
+  position: absolute;
+  left: -5px;
+  top: -6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft), 0 0 18px var(--accent-glow);
+}
+.pipeline__dot {
+  transition: background var(--tx), box-shadow var(--tx), border-color var(--tx), scale var(--tx);
+}
+.has-motion .pipeline__job .pipeline__dot { border-color: var(--border-strong); box-shadow: none; }
+.has-motion .pipeline__job.is-active .pipeline__dot {
+  background: var(--accent);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 5px var(--accent-soft), 0 0 16px var(--accent-glow);
+  scale: 1.1;
+}
+
+/* Projects as a pinned horizontal film strip (desktop only) */
+#projects.is-strip {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 96px;
+  padding-bottom: 48px;
+}
+#projects.is-strip .projects__grid {
+  display: flex;
+  gap: 22px;
+  width: max-content;
+  will-change: transform;
+}
+#projects.is-strip .project {
+  flex: 0 0 auto;
+  width: clamp(300px, 32vw, 400px);
+  scale: var(--enter, 1);
+}
+.projects__meter {
+  margin-top: 30px;
+  width: 220px;
+  max-width: 50%;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--border);
+  overflow: hidden;
+}
+.projects__meter span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left center;
 }
 
 /* ---------- Responsive ---------- */

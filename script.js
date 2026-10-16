@@ -170,9 +170,14 @@
   }
 
   /* ----------------------------------------------------
-     Scroll reveal
+     Scroll reveal (fallback)
+     motion.js owns scroll animation when GSAP is available.
+     This simple one-shot reveal only runs if it isn't.
      ---------------------------------------------------- */
-  const revealTargets = document.querySelectorAll(
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const motionLayer = !prefersReducedMotion && !!(window.gsap && window.ScrollTrigger);
+
+  const revealTargets = motionLayer ? [] : document.querySelectorAll(
     ".section__head, .about__text p, .about__card, " +
     ".stack__group, .project, .pipeline__job, .contact__terminal, .hero__inner > *, " +
     ".metric, .edu"
@@ -180,7 +185,6 @@
   revealTargets.forEach((el) => el.classList.add("reveal"));
 
   // Count-up animation for impact metrics (final value stays in the HTML for no-JS / crawlers)
-  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const countUp = (el) => {
     const target = parseInt(el.dataset.count, 10);
     if (Number.isNaN(target) || prefersReducedMotion) return;
@@ -333,13 +337,21 @@ window.addEventListener("resize", () => requestAnimationFrame(initProjectTitleMa
 
       ctx.clearRect(0, 0, W, H);
 
+      // Scroll velocity from motion.js (Lenis). Bigger particles move more,
+      // which reads as depth. Decays so the drift eases out after scrolling stops.
+      const vel = Math.max(-40, Math.min(40, window.__scrollVelocity || 0));
+      window.__scrollVelocity = vel * 0.9;
+
       // particles
       for (const p of particles) {
         p.x += p.vx;
-        p.y += p.vy;
+        p.y += p.vy - vel * 0.12 * p.r;
         if (p.x < 0 || p.x > W) p.vx *= -1;
-        if (p.y > H) {
+        if (p.y > H + 10) {
           p.y = -10;
+          p.x = Math.random() * W;
+        } else if (p.y < -10) {
+          p.y = H + 10;
           p.x = Math.random() * W;
         }
 
